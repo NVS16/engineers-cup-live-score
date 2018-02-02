@@ -1,0 +1,20 @@
+{
+  "name": "engineerscuplive",
+  "version": "1.0.0",
+  "description": "Live score of CET's annual sports event",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "socket.io",
+    "angular"
+  ],
+  "author": "rkpattnaik780",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
+  }
+}

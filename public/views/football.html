@@ -1,0 +1,32 @@
+<div class="well">
+    <div class="row">
+
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div>{{scoreBoard.team1.name}}</div>
+            <div>{{scoreBoard.team1.scores.length}}</div>
+            <div ng-repeat="goal in scoreBoard.team1.scores">
+                <p>{{goal.scorer}}</p>
+                <i>-{{goal.time}}</i>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div>{{scoreBoard.team2.name}}</div>
+            <div>{{scoreBoard.team2.scores.length}}</div>
+            <div ng-repeat="goal in scoreBoard.team2.scores">
+                <p>{{goal.scorer}}</p>
+                <i>-{{goal.time}}</i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class = "well">
+    <div ng-repeat = "c in scoreBoard.commentary">
+        <b>{{c.time}}</b><span>{{c.text}}</span>
+    </div>
+</div>
+
+<div class="half-time">Half time!</div>
+<div class="not-live">No match is being played</div>

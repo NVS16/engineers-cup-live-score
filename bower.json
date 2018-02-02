@@ -1,0 +1,23 @@
+{
+  "name": "socket_tutorial",
+  "description": "socket rooms tutorial",
+  "main": "index.js",
+  "authors": [
+    "rkpattnaik780"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "angular": "^1.6.8",
+    "angular-route": "^1.6.8",
+    "angular-touch": "^1.6.8"
+  }
+}

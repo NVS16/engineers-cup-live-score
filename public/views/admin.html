@@ -1,0 +1,118 @@
+<select ng-model="selectedGame" ng-change="changeRoom(selectedGame)">
+    <option value="football">Football</option>
+    <option value="table-tennis">Table Tennis</option>
+    <option value="badminton">Badminton</option>
+</select>
+
+<div ng-switch="selectedGame">
+
+
+    <div ng-switch-when="football">
+        <form ng-submit="updateFootball()">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input ng-model="footballScoreBoard.team1.name" name="team1name" placeholder="name of team 1">
+                    <div>
+                        <input ng-model="footBallScorer1" placeholder="scorer's name">
+
+                        <button ng-click="addFootballScore1(footBallScorer1)">Add a score</button>
+                    </div>
+                    <div ng-repeat="goal in footballScoreBoard.team1.scores">
+                        <p>{{goal.scorer}}</p>
+                        <i>-{{goal.time}}</i>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <input ng-model="footballScoreBoard.team2.name" name="team2name" placeholder="name of team 2">
+                    <div>
+                        <input ng-model="footBallScorer2" placeholder="scorer's name">
+
+                        <button ng-click="addFootballScore2(footBallScorer2)">Add a score</button>
+                    </div>
+                    <div ng-repeat="goal in footballScoreBoard.team2.scores">
+                        <p>{{goal.scorer}}</p>
+                        <i>-{{goal.time}}</i>
+                    </div>
+                </div>
+            </div>
+            <button type="submit">Update</button>
+
+        </form>
+        <form ng-submit="commentFootball(footballComments)">
+            <input ng-model="footballComments" placeholder="make some commentary">
+        </form>
+    </div>
+
+
+    <div ng-switch-when="table-tennis">
+        <h1>Set No : {{tennisScoreBoard.setNumber}}</h1>
+        <form ng-submit="updateTennis()">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input ng-model="tennisScoreBoard.player1.name" name="tplayer1name" placeholder="name of player 1">
+                    <input ng-model="tennisScoreBoard.player1.college" name="tplayer1college" placeholder="college of player 1">
+                    <div>
+                        <input ng-model="tennisScoreBoard.player1.points" placeholder="enter points">
+
+                        <button ng-click="">+1</button>
+                    </div>
+                    <input ng-model="tennisScoreBoard.player1.setWins">
+                    <button ng-click="">+1</button>
+
+                </div>
+                <div class="col-sm-6">
+                    <input ng-model="tennisScoreBoard.player2.name" name="tplayer2name" placeholder="name of player 2">
+                    <input ng-model="tennisScoreBoard.player2.college" name="tplayer2college" placeholder="college of player 2">
+                    <div>
+                        <input ng-model="tennisScoreBoard.player2.points" placeholder="enter points">
+
+                        <button ng-click="">+1</button>
+                    </div>
+                    <input ng-model="tennisScoreBoard.player2.setWins">
+                    <button ng-click="">+1</button>
+                </div>
+            </div>
+            <button type="submit">Update</button>
+
+        </form>
+        <form ng-submit="commentTennis(tennisComments)">
+            <input ng-model="tennisComments" placeholder="make some commentary">
+        </form>
+    </div>
+
+    <div ng-switch-when="badminton">
+        <h1>Set No : {{badmintonScoreBoard.setNumber}}</h1>
+        <form ng-submit="updateBadminton()">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input ng-model="badmintonScoreBoard.player1.name" name="bplayer1name" placeholder="name of player 1">
+                    <input ng-model="badmintonScoreBoard.player1.college" name="bplayer1college" placeholder="college of player 1">
+                    <div>
+                        <input ng-model="badmintonScoreBoard.player1.points" placeholder="enter points">
+
+                        <button ng-click="">+1</button>
+                    </div>
+                    <input ng-model="badmintonScoreBoard.player1.setWins">
+                    <button ng-click="">+1</button>
+
+                </div>
+                <div class="col-sm-6">
+                    <input ng-model="badmintonScoreBoard.player2.name" name="bplayer2name" placeholder="name of player 2">
+                    <input ng-model="badmintonScoreBoard.player2.college" name="bplayer2college" placeholder="college of player 2">
+                    <div>
+                        <input ng-model="badmintonScoreBoard.player2.points" placeholder="enter points">
+
+                        <button ng-click="">+1</button>
+                    </div>
+                    <input ng-model="badmintonScoreBoard.player2.setWins">
+                    <button ng-click="">+1</button>
+                </div>
+            </div>
+            <button type="submit">Update</button>
+
+        </form>
+        <form ng-submit="commentBadminton(badmintonComments)">
+            <input ng-model="badmintonComments" placeholder="make some commentary">
+        </form>
+    </div>
+</div>
