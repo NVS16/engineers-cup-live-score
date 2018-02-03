@@ -1,3 +1,4 @@
+<div ng-if="tennisScoreBoard.isLive">
 <div class="row">
     <p>Current Set - {{ tennisScoreBoard.setNumber }}</p>
     <div class="col-sm-6">
@@ -21,6 +22,7 @@
         <span>{{c.text}}</span>
     </div>
 </div>
+</div>
 
-<div class="half-time">Half time!</div>
-<div class="not-live">No match is being played</div>
+<div class="half-time" ng-if="tennisScoreBoard.isHalf">Half time!</div>
+<div class="not-live" ng-if="!tennisScoreBoard.isLive" >No match is being played</div>

@@ -29,6 +29,11 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/dashboard', {
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashCtrl',
+        controllerAs: 'dash'
+      })
       .when('/football', {
         templateUrl: 'views/football.html',
         controller: 'FootballCtrl',

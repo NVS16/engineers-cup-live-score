@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 var football_score = {
   "isHalfTime": false,
-  "isLive": true,
+  "isLive": false,
   "team1": {
     "name": null,
     "scores": [/*{ "time": 0, "scorer": null }*/]
@@ -23,9 +23,9 @@ var football_score = {
 };
 
 var table_tennis = {
-  "setNumber": 0,
+  "setNumber": 1,
   "isHalfTime": false,
-  "isLive": true,
+  "isLive": false,
   "player1": {
     "college": null,
     "name": null,
@@ -38,13 +38,13 @@ var table_tennis = {
     "points": 0,
     "setWins": 0
   },
-  "commentary": [{ "time": "00", "text": "Comments" }]
+  "commentary": [/*{ "time": "00", "text": "Comments" }*/]
 };
 
 var badminton = {
-  "setNumber": 0,
+  "setNumber": 1,
   "isHalfTime": false,
-  "isLive": true,
+  "isLive": false,
   "player1": {
     "name": null,
     "points": 0,
@@ -55,12 +55,12 @@ var badminton = {
     "points": 0,
     "setWins": 0
   },
-  "commentary": [{ "time": "00", "text": "Comments" }]
+  "commentary": [/*{ "time": "00", "text": "Comments" }*/]
 };
 
 var basketball = {
   "isHalfTime": false,
-  "isLive": true,
+  "isLive": false,
   "team1": {
     "name": null,
     "scores": 0
@@ -75,7 +75,7 @@ var basketball = {
 var volleyBall = {
   "setNumber": 0,
   "isHalfTime": false,
-  "isLive": true,
+  "isLive": false,
   "team1": {
     "name": null,
     "points": 0,
@@ -92,7 +92,7 @@ var volleyBall = {
 var cricket = {
   "innings": 0,
   "isBreak": false,
-  "isLive": true,
+  "isLive": false,
   "team1": {
     "name": null,
     "score": 0,
@@ -121,7 +121,7 @@ io.on("connection", function (socket) {
   socket.on("update-football", function (data) {
     football_score = data;
     console.log(data);
-    io.emit("football-updated", football_score);
+    io.emit("football-updated", football_score); 
   });
 
   ///////////////////////////////////////////////////////////////////////

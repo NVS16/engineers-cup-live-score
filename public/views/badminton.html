@@ -1,4 +1,5 @@
-<div class="row">
+<div ng-if="badmintonScoreBoard.isLive">
+    <div class="row">
         <p>Current Set - {{ badmintonScoreBoard.setNumber }}</p>
         <div class="col-sm-6">
             <p>Name - {{ badmintonScoreBoard.player1.name }}</p>
@@ -21,6 +22,7 @@
             <span>{{c.text}}</span>
         </div>
     </div>
+</div>
     
-    <div class="half-time">Half time!</div>
-    <div class="not-live">No match is being played</div>
+<div class="half-time" ng-if="badmintonScoreBoard.isHalf" >Half time!</div>
+<div class="not-live" ng-if="!badmintonScoreBoard.isLive" >No match is being played</div>

@@ -4,7 +4,7 @@ angular.module('scoreApp')
   .controller('FootballCtrl', function ($scope) {
 
     socket.emit('join-football', $scope.details );
-    $scope.scoreBoard = {
+    $scope.footballScoreBoard = {
       "isHalfTime": false,
       "isLive": false ,
       "team1": {
@@ -21,14 +21,14 @@ angular.module('scoreApp')
     socket.on("joined-football" , function(data){
       console.log(data);
       $scope.$apply(function(){
-        $scope.scoreBoard = data ;
+        $scope.footballScoreBoard = data ;
       });
     });
 
     socket.on("football-updated" , function(data){
       console.log("an update - " + data.toString());
       $scope.$apply(function(){
-        $scope.scoreBoard = data ;
+        $scope.footballScoreBoard = data ;
       });
   })
 
