@@ -5,41 +5,49 @@
         </div>
         <div class="row">
             <div class="col-sm-6 col-xs-12 col-lg-6 col-md-6">
-                <div><h1>{{footballScoreBoard.team1.name}}</h1></div>
-                <div><h2>{{footballScoreBoard.team1.scores.length}}</h2></div>
+                <div>
+                    <h1>{{footballScoreBoard.team1.name}}</h1>
+                </div>
+                <div>
+                    <h2>{{footballScoreBoard.team1.scores.length}}</h2>
+                </div>
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Goal</th>
                             <th>Goal Scorer</th>
-                            <th>Time</th>   
+                            <th>Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="goal in footballScoreBoard.team1.scores track by $index">
-                                <td>{{$index + 1}}</td>
-                                <td>{{goal.scorer}}</td>
-                                <td>{{goal.time}}</td>
+                            <td>{{$index + 1}}</td>
+                            <td>{{goal.scorer}}</td>
+                            <td>{{goal.time}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="col-sm-6 col-xs-12 col-lg-6 col-md-6">
-                <div><h1>{{footballScoreBoard.team2.name}}</h1></div>
-                <div><h2>{{footballScoreBoard.team2.scores.length}}</h2></div>
+                <div>
+                    <h1>{{footballScoreBoard.team2.name}}</h1>
+                </div>
+                <div>
+                    <h2>{{footballScoreBoard.team2.scores.length}}</h2>
+                </div>
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Goal</th>
                             <th>Goal Scorer</th>
-                            <th>Time</th>   
+                            <th>Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="goal in footballScoreBoard.team2.scores track by $index">
-                                <td>{{$index + 1}}</td>
-                                <td>{{goal.scorer}}</td>
-                                <td>{{goal.time}}</td>
+                            <td>{{$index + 1}}</td>
+                            <td>{{goal.scorer}}</td>
+                            <td>{{goal.time}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -47,11 +55,14 @@
         </div>
     </div>
 
-    <div class = "well">
-        <div ng-repeat = "c in footballScoreBoard.commentary">
-            <b>{{c.time}}</b><span>{{c.text}}</span>
+    <div class="well" ng-if = "footballScoreBoard.commentary.length > 0">
+        Commentary section : -
+        <div ng-repeat="c in footballScoreBoard.commentary track by $index">
+            <b>{{c.time}}</b>
+            <span>{{c.text}}</span>
         </div>
     </div>
+    <div ng-if="footballScoreBoard.isHalfTime" class="half-time">Half time!</div>
 </div>
-<div ng-if="footballScoreBoard.isHalf" class="half-time">Half time!</div>
-<div class="not-live" ng-if="!footballScoreBoard.isLive" >No match is being played</div>
+
+<div class="not-live" ng-if="!footballScoreBoard.isLive">No match is being played</div>

@@ -1,0 +1,25 @@
+<div ng-if="basketballScoreBoard.isLive">
+        <div class="row">
+            
+            <p>Current Quarter - {{ basketballScoreBoard.quarterNumber }}</p>
+            <div class="col-sm-6">
+                <p>Name - {{ basketballScoreBoard.team1.name }}</p>
+                <p>Points - {{ basketballScoreBoard.team1.scores }}</p>
+    
+            </div>
+            <div class="col-sm-6">
+                <p>Name - {{ basketballScoreBoard.team2.name }}</p>
+                <p>Points - {{ basketballScoreBoard.team2.scores }}</p>
+            </div>
+        </div>
+    
+        <div class="well" ng-if = "basketballScoreBoard.commentary.length > 0">
+            <div ng-repeat="c in basketballScoreBoard.commentary track by $index">
+                <b>{{c.time}}</b>
+                <span>{{c.text}}</span>
+            </div>
+        </div>
+        <div class="half-time" ng-if="basketballScoreBoard.isBreak">Half time!</div>
+    </div>
+    
+    <div class="not-live" ng-if="!basketballScoreBoard.isLive">No match is being played</div>

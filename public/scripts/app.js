@@ -54,6 +54,11 @@ angular
         controller: 'BadmintonCtrl',
         controllerAs: 'badminton'
       })
+      .when('/basketball', {
+        templateUrl: 'views/basketball.html',
+        controller: 'BasketballCtrl',
+        controllerAs: 'basketball'
+      })
       .otherwise({
        templateUrl : "../404.html"
       });

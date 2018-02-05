@@ -8,7 +8,9 @@
  * Controller of the scoreApp
  */
 angular.module('scoreApp')
-    .controller('AdminCtrl', function ($scope) {
+    .controller('AdminCtrl', function ($scope , $location , loginservice) {
+
+        if(!loginservice.isLoggedIn()) $location.path('/');
 
         $scope.selectedGame = "football";
         socket.emit("join-football");
@@ -23,15 +25,15 @@ angular.module('scoreApp')
             "isHalfTime": false,
             "isLive": false,
             "team1": {
-              "name": null,
-              "scores": [/*{ "time": 0, "scorer": null }*/]
+                "name": null,
+                "scores": [/*{ "time": 0, "scorer": null }*/]
             },
             "team2": {
-              "name": null,
-              "scores": [/*{ "time": 0, "scorer": null }*/]
+                "name": null,
+                "scores": [/*{ "time": 0, "scorer": null }*/]
             },
             "commentary": [/*{ "time": "0000", "text": "Comments" }*/]
-          };
+        };
 
         /////////////////////////////////////////////////
         ////////// for football scoreboard /////////////
@@ -81,7 +83,7 @@ angular.module('scoreApp')
         }
 
 
-        $scope.resetGameFootball = function() {
+        $scope.resetGameFootball = function () {
             $scope.footballScoreBoard = defaultfootballScoreBoard;
             $scope.updateFootball();
         };
@@ -94,8 +96,9 @@ angular.module('scoreApp')
 
         $scope.tennisScoreBoard = {
             "setNumber": 1,
-            "isHalfTime": false,
+            "isBreak": false,
             "isLive": false,
+            "setHistory": [],
             "player1": {
                 "college": null,
                 "name": null,
@@ -126,33 +129,47 @@ angular.module('scoreApp')
         }
 
 
-        $scope.changeTennisScore1 = function(i) {
+        $scope.changeTennisScore1 = function (i) {
             $scope.tennisScoreBoard.player1.points += i;
             $scope.updateTennis();
         };
 
-        $scope.changeTennisSet1 = function(i) {
+        $scope.changeTennisSet1 = function (i) {
             $scope.tennisScoreBoard.player1.setWins += i;
             $scope.updateTennis();
         };
 
-        $scope.changeTennisScore2 = function(i) {
+        $scope.changeTennisScore2 = function (i) {
             $scope.tennisScoreBoard.player2.points += i;
             $scope.updateTennis();
         };
 
-        $scope.changeTennisSet2 = function(i) {
+        $scope.changeTennisSet2 = function (i) {
             $scope.tennisScoreBoard.player2.setWins += i;
             $scope.updateTennis();
         };
 
-        $scope.endSetTennis = function() {
-            if($scope.tennisScoreBoard.player1.points > $scope.tennisScoreBoard.player2.points) {
+        $scope.endSetTennis = function () {
+            if ($scope.tennisScoreBoard.player1.points > $scope.tennisScoreBoard.player2.points) {
+                $scope.tennisScoreBoard.setHistory.push({
+                    "setnumber": $scope.tennisScoreBoard.setNumber,
+                    "winner": $scope.tennisScoreBoard.player1.name,
+                    "loser": $scope.tennisScoreBoard.player2.name,
+                    "winpoints": $scope.tennisScoreBoard.player1.points,
+                    "losepoints": $scope.tennisScoreBoard.player2.points
+                });
                 $scope.tennisScoreBoard.player1.points = $scope.tennisScoreBoard.player2.points = 0;
                 $scope.tennisScoreBoard.player1.setWins += 1;
                 $scope.tennisScoreBoard.setNumber += 1;
                 $scope.updateTennis();
-            } else if($scope.tennisScoreBoard.player1.points < $scope.tennisScoreBoard.player2.points) {
+            } else if ($scope.tennisScoreBoard.player1.points < $scope.tennisScoreBoard.player2.points) {
+                $scope.tennisScoreBoard.setHistory.push({
+                    "setnumber": $scope.tennisScoreBoard.setNumber,
+                    "winner": $scope.tennisScoreBoard.player2.name,
+                    "loser": $scope.tennisScoreBoard.player1.name,
+                    "win-points": $scope.tennisScoreBoard.player2.points,
+                    "loose-points": $scope.tennisScoreBoard.player1.points
+                });
                 $scope.tennisScoreBoard.player1.points = $scope.tennisScoreBoard.player2.points = 0;
                 $scope.tennisScoreBoard.player2.setWins += 1;
                 $scope.tennisScoreBoard.setNumber += 1;
@@ -162,7 +179,7 @@ angular.module('scoreApp')
             }
         };
 
-        $scope.resetGameTennis = function() {
+        $scope.resetGameTennis = function () {
             $scope.tennisScoreBoard = defaultTennisScoreBoard;
             $scope.tennisScoreBoard.isLive = false;
             $scope.updateTennis();
@@ -174,8 +191,9 @@ angular.module('scoreApp')
 
         $scope.badmintonScoreBoard = {
             "setNumber": 1,
-            "isHalfTime": false,
+            "isBreak": false,
             "isLive": false,
+            "setHistory": [],
             "player1": {
                 "college": null,
                 "name": null,
@@ -207,33 +225,47 @@ angular.module('scoreApp')
         }
 
 
-        $scope.changeBadmintonScore1 = function(i) {
+        $scope.changeBadmintonScore1 = function (i) {
             $scope.badmintonScoreBoard.player1.points += i;
             $scope.updateBadminton();
         };
 
-        $scope.changeBadmintonSet1 = function(i) {
+        $scope.changeBadmintonSet1 = function (i) {
             $scope.badmintonScoreBoard.player1.setWins += i;
             $scope.updateBadminton();
         };
 
-        $scope.changeBadmintonScore2 = function(i) {
+        $scope.changeBadmintonScore2 = function (i) {
             $scope.badmintonScoreBoard.player2.points += i;
             $scope.updateBadminton();
         };
 
-        $scope.changeBadmintonSet2 = function(i) {
+        $scope.changeBadmintonSet2 = function (i) {
             $scope.badmintonScoreBoard.player2.setWins += i;
             $scope.updateBadminton();
         };
 
-        $scope.endSetBadminton = function() {
-            if($scope.badmintonScoreBoard.player1.points > $scope.badmintonScoreBoard.player2.points) {
+        $scope.endSetBadminton = function () {
+            if ($scope.badmintonScoreBoard.player1.points > $scope.badmintonScoreBoard.player2.points) {
+                $scope.badmintonScoreBoard.setHistory.push({
+                    "setnumber": $scope.badmintonScoreBoard.setNumber,
+                    "winner": $scope.badmintonScoreBoard.player1.name,
+                    "loser": $scope.badmintonScoreBoard.player2.name,
+                    "winpoints": $scope.badmintonScoreBoard.player1.points,
+                    "losepoints": $scope.badmintonScoreBoard.player2.points
+                });
                 $scope.badmintonScoreBoard.player1.points = $scope.badmintonScoreBoard.player2.points = 0;
                 $scope.badmintonScoreBoard.player1.setWins++;
                 $scope.badmintonScoreBoard.setNumber += 1;
                 $scope.updateBadminton();
-            } else if($scope.badmintonScoreBoard.player1.points < $scope.badmintonScoreBoard.player2.points) {
+            } else if ($scope.badmintonScoreBoard.player1.points < $scope.badmintonScoreBoard.player2.points) {
+                $scope.badmintonScoreBoard.setHistory.push({
+                    "setnumber": $scope.badmintonScoreBoard.setNumber,
+                    "winner": $scope.badmintonScoreBoard.player2.name,
+                    "loser": $scope.badmintonScoreBoard.player1.name,
+                    "winpoints": $scope.badmintonScoreBoard.player2.points,
+                    "losepoints": $scope.badmintonScoreBoard.player1.points
+                });
                 $scope.badmintonScoreBoard.player1.points = $scope.badmintonScoreBoard.player2.points = 0;
                 $scope.badmintonScoreBoard.player2.setWins++;
                 $scope.badmintonScoreBoard.setNumber += 1;
@@ -243,10 +275,65 @@ angular.module('scoreApp')
             }
         };
 
-        $scope.resetGameBadminton = function() {
+        $scope.resetGameBadminton = function () {
             $scope.badmintonScoreBoard = defaultBadmintonScoreBoard;
             $scope.badmintonScoreBoard.isLive = false;
             $scope.updateBadminton();
+        };
+
+        /////////////////////////////////////////////////
+        ////////// for basketball scoreboard /////////////
+        /////////////////////////////////////////////////
+
+        $scope.basketballScoreBoard = {
+            "quarterNumber" : 1 ,
+            "isBreak": false,
+            "isLive": false,
+            "team1": {
+                "name": null,
+                "scores": 0
+            },
+            "team2": {
+                "name": null,
+                "scores": 0
+            },
+            "commentary": [/*{ "time": "0000", "text": "Comments" }*/]
+        };
+
+        var defaultBasketballScoreBoard = $scope.basketballScoreBoard;
+
+        $scope.updateBasketball = function () {
+            socket.emit("update-basketball", $scope.basketballScoreBoard);
+        };
+
+        $scope.changeBasketballScore1 = function (i) {
+            $scope.basketballScoreBoard.team1.scores += i;
+            $scope.updateBasketball();
+        };
+
+        $scope.changeBasketballScore2 = function (i) {
+            $scope.basketballScoreBoard.team2.scores += i;
+            $scope.updateBasketball();
+        };
+
+        $scope.changeBasketballQuarter = function(i) {
+            $scope.basketballScoreBoard.quarterNumber += i ;
+            $scope.updateBasketball();
+        }
+
+        $scope.resetGameBasketball = function () {
+            $scope.basketballScoreBoard = defaultBasketballScoreBoard;
+            $scope.basketballScoreBoard.isLive = false;
+            $scope.updateBasketball();
+        };
+
+        $scope.commentBasketball = function (text) {
+            var d = new Date();
+            $scope.basketballScoreBoard.commentary.push({
+                "time": d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
+                "text": text
+            });
+            $scope.updateBasketball();
         };
 
         ////////////////////////////////////////////////
@@ -274,120 +361,15 @@ angular.module('scoreApp')
             });
         });
 
-
-        /////////////////////////////////////////////////
-        ////////// for basketball scoreboard /////////////
-        /////////////////////////////////////////////////
-
-        $scope.basketballScoreBoard = {
-            "isHalfTime": false,
-            "isLive": false,
-            "team1": {
-              "name": null,
-              "scores": 0
-            },
-            "team2": {
-              "name": null,
-              "scores": 0
-            },
-            "commentary": [{ "time": "0000", "text": "Comments" }]
-          };
-
-        var defaultBasketballScoreBoard = $scope.basketballScoreBoard;
-
-        $scope.updateBasketball = function () {
-            socket.emit("update-basketball", $scope.basketballScoreBoard);
-        }
-
-        $scope.commentBasketball = function (text) {
-            var d = new Date();
-            $scope.basketballScoreBoard.commentary.push({
-                "time": d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
-                "text": text
+        socket.on("basketball-updated", function (data) {
+            console.log("an update");
+            $scope.$apply(function () {
+                $scope.basketballScoreBoard = data;
             });
-            $scope.updateBasketball();
-        }
+        });
 
 
-        /////////////////////////////////////////////////
-        ////////// for badminton scoreboard /////////////
-        /////////////////////////////////////////////////
 
-        $scope.badmintonScoreBoard = {
-            "setNumber": 1,
-            "isHalfTime": false,
-            "isLive": false,
-            "player1": {
-                "college": null,
-                "name": null,
-                "points": 0,
-                "setWins": 0
-            },
-            "player2": {
-                "college": null,
-                "name": null,
-                "points": 0,
-                "setWins": 0
-            },
-            "commentary": [/*{ "time": "00", "text": "Comments" }*/]
-        };
-
-        var defaultBadmintonScoreBoard = $scope.badmintonScoreBoard;
-
-        $scope.updateBadminton = function () {
-            socket.emit("update-badminton", $scope.badmintonScoreBoard);
-        }
-
-        $scope.commentBadminton = function (text) {
-            var d = new Date();
-            $scope.badmintonScoreBoard.commentary.push({
-                "time": d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
-                "text": text
-            });
-            $scope.updateBadminton();
-        }
-
-
-        /////////////////////////////////////////////////
-        ////////// for badminton scoreboard /////////////
-        /////////////////////////////////////////////////
-
-        $scope.badmintonScoreBoard = {
-            "setNumber": 1,
-            "isHalfTime": false,
-            "isLive": false,
-            "player1": {
-                "college": null,
-                "name": null,
-                "points": 0,
-                "setWins": 0
-            },
-            "player2": {
-                "college": null,
-                "name": null,
-                "points": 0,
-                "setWins": 0
-            },
-            "commentary": [/*{ "time": "00", "text": "Comments" }*/]
-        };
-
-        var defaultBadmintonScoreBoard = $scope.badmintonScoreBoard;
-
-        $scope.updateBadminton = function () {
-            socket.emit("update-badminton", $scope.badmintonScoreBoard);
-        }
-
-        $scope.commentBadminton = function (text) {
-            var d = new Date();
-            $scope.badmintonScoreBoard.commentary.push({
-                "time": d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
-                "text": text
-            });
-            $scope.updateBadminton();
-        }
-
-
-        ///////////////////////////////////////////////
 
         ///////////////////////////////////////////////
         ////// function to select room for admin //////
