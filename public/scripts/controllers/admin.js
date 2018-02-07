@@ -11,15 +11,15 @@ angular.module('scoreApp')
     .controller('AdminCtrl', function ($scope , $location , loginservice) {
 
         if(!loginservice.isLoggedIn()) $location.path('/');
-
-        $scope.selectedGame = "football";
+        else 
+        {$scope.selectedGame = "football";
         socket.emit("join-football");
         socket.on("joined-football", function (data) {
             console.log(data);
             $scope.$apply(function () {
                 $scope.footballScoreBoard = data;
             });
-        });
+        });}
 
         var defaultfootballScoreBoard = {
             "isHalfTime": false,
@@ -336,6 +336,100 @@ angular.module('scoreApp')
             $scope.updateBasketball();
         };
 
+        /////////////////////////////////////////////////
+        ////////// for volleyball scoreboard /////////////
+        /////////////////////////////////////////////////
+
+        $scope.volleyballScoreBoard = {
+            "viewers": 0,
+            "setNumber": 1,
+            "isBreak": false,
+            "isLive": false,
+            "setHistory": [],
+            "player1": {
+              "name": null,
+              "points": 0,
+              "setWins": 0
+            },
+            "player2": {
+              "name": null,
+              "points": 0,
+              "setWins": 0
+            },
+            "commentary": [/*{ "time": "00", "text": "Comments" }*/]
+          };
+
+        var defaultVolleyballScoreBoard = $scope.volleyballScoreBoard;
+
+        $scope.updateVolleyball = function () {
+            socket.emit("update-volleyball", $scope.volleyballScoreBoard);
+        }
+
+        $scope.commentVolleyball = function (text) {
+            var d = new Date();
+            $scope.volleyballScoreBoard.commentary.push({
+                "time": d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
+                "text": text
+            });
+            $scope.updateVolleyball();
+        }
+
+
+        $scope.changeVolleyballScore1 = function (i) {
+            $scope.volleyballScoreBoard.player1.points += i;
+            $scope.updateVolleyball();
+        };
+
+        $scope.changeVolleyballSet1 = function (i) {
+            $scope.volleyballScoreBoard.player1.setWins += i;
+            $scope.updateVolleyball();
+        };
+
+        $scope.changeVolleyballScore2 = function (i) {
+            $scope.volleyballScoreBoard.player2.points += i;
+            $scope.updateVolleyball();
+        };
+
+        $scope.changeVolleyballSet2 = function (i) {
+            $scope.volleyballScoreBoard.player2.setWins += i;
+            $scope.updateVolleyball();
+        };
+
+        $scope.endSetVolleyball = function () {
+            if ($scope.volleyballScoreBoard.player1.points > $scope.volleyballScoreBoard.player2.points) {
+                $scope.volleyballScoreBoard.setHistory.push({
+                    "setnumber": $scope.volleyballScoreBoard.setNumber,
+                    "winner": $scope.volleyballScoreBoard.player1.name,
+                    "loser": $scope.volleyballScoreBoard.player2.name,
+                    "winpoints": $scope.volleyballScoreBoard.player1.points,
+                    "losepoints": $scope.volleyballScoreBoard.player2.points
+                });
+                $scope.volleyballScoreBoard.player1.points = $scope.volleyballScoreBoard.player2.points = 0;
+                $scope.volleyballScoreBoard.player1.setWins++;
+                $scope.volleyballScoreBoard.setNumber += 1;
+                $scope.updateVolleyball();
+            } else if ($scope.volleyballScoreBoard.player1.points < $scope.volleyballScoreBoard.player2.points) {
+                $scope.volleyballScoreBoard.setHistory.push({
+                    "setnumber": $scope.volleyballScoreBoard.setNumber,
+                    "winner": $scope.volleyballScoreBoard.player2.name,
+                    "loser": $scope.volleyballScoreBoard.player1.name,
+                    "winpoints": $scope.volleyballScoreBoard.player2.points,
+                    "losepoints": $scope.volleyballScoreBoard.player1.points
+                });
+                $scope.volleyballScoreBoard.player1.points = $scope.volleyballScoreBoard.player2.points = 0;
+                $scope.volleyballScoreBoard.player2.setWins++;
+                $scope.volleyballScoreBoard.setNumber += 1;
+                $scope.updateVolleyball();
+            } else {
+                alert("Both Scores Equal! Can't End Set Yet!");
+            }
+        };
+
+        $scope.resetGameVolleyball = function () {
+            $scope.volleyballScoreBoard = defaultVolleyballScoreBoard;
+            $scope.volleyballScoreBoard.isLive = false;
+            $scope.updateVolleyball();
+        };
         ////////////////////////////////////////////////
         ///////////// UPDATION EVENTS //////////////////
         ////////////////////////////////////////////////

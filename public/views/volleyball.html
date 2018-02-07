@@ -1,0 +1,54 @@
+<div ng-if="badmintonScoreBoard.isLive">
+    <div class="row">
+        <div class="well" ng-if="badmintonScoreBoard.setHistory.length > 0">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Set Number</th>
+                        <th>Wins</th>
+                        <th>Losses</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="set in badmintonScoreBoard.setHistory track by $index">
+                        <td>{{set.setnumber}}</td>
+                        <td>
+
+                            {{set.winner}} {{set.winpoints}}
+
+                        </td>
+                        <td>
+
+                            {{set.loser}} {{set.losepoints}}
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>Current Set - {{ badmintonScoreBoard.setNumber }}</p>
+        <div class="col-sm-6">
+            <p>Name - {{ badmintonScoreBoard.player1.name }}</p>
+            <p>College - {{ badmintonScoreBoard.player1.college }}</p>
+            <p>Points - {{ badmintonScoreBoard.player1.points }}</p>
+            <p>Set wins - {{ badmintonScoreBoard.player1.setWins }}</p>
+
+        </div>
+        <div class="col-sm-6">
+            <p>Name - {{ badmintonScoreBoard.player2.name }}</p>
+            <p>College - {{ badmintonScoreBoard.player2.college }}</p>
+            <p>Points - {{ badmintonScoreBoard.player2.points }}</p>
+            <p>Set wins - {{ badmintonScoreBoard.player2.setWins }}</p>
+        </div>
+    </div>
+
+    <div class="well" ng-if = "badmintonScoreBoard.commentary.length > 0">
+        <div ng-repeat="c in badmintonScoreBoard.commentary track by $index">
+            <b>{{c.time}}</b>
+            <span>{{c.text}}</span>
+        </div>
+    </div>
+    <div class="half-time" ng-if="badmintonScoreBoard.isBreak">Half time!</div>
+</div>
+
+<div class="not-live" ng-if="!badmintonScoreBoard.isLive">No match is being played</div>

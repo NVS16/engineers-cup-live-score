@@ -59,6 +59,16 @@ angular
         controller: 'BasketballCtrl',
         controllerAs: 'basketball'
       })
+      .when('/cricket', {
+        templateUrl: 'views/cricket.html',
+        controller: 'CricketCtrl',
+        controllerAs: 'cricket'
+      })
+      .when('/volleyball', {
+        templateUrl: 'views/volleyball.html',
+        controller: 'VolleyballCtrl',
+        controllerAs: 'volleyball'
+      })
       .otherwise({
        templateUrl : "../404.html"
       });

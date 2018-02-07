@@ -81,9 +81,10 @@ var basketball = {
 
 var volleyBall = {
   "viewers": 0,
-  "setNumber": 0,
-  "isHalfTime": false,
+  "setNumber": 1,
+  "isBreak": false,
   "isLive": false,
+  "setHistory": [],
   "team1": {
     "name": null,
     "points": 0,
