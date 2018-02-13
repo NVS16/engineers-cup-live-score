@@ -1,0 +1,19 @@
+form {
+    background-color: #ECECEA;
+    border: 1px solid #ccc;
+    padding: 20px !important;
+    border-radius: 7px;
+    margin: 15% 15% 0px 15% !important;
+    box-shadow: 5px 5px 10px #ddd;
+    font-family: 'Comfortaa', cursive; 
+}
+
+.form-group {
+    padding: 10px !important;
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Righteous', cursive;
+    text-shadow: 1px 1px 1px #888;
+}

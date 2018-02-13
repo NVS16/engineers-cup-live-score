@@ -1,0 +1,68 @@
+*{
+    text-align: center;
+    font-family: 'Comfortaa', cursive; 
+}
+
+#main{
+    margin: 0px !important;
+    padding: 0px !important;
+}
+
+/*
+    form style start
+*/
+
+
+form {
+    background-color: #ECECEA;
+    border: 1px solid #ccc;
+    padding: 20px !important;
+    border-radius: 2px;
+    box-shadow: 5px 5px 10px #ddd;
+}
+
+.form-group {
+    padding: 10px !important;
+}
+
+h2 {
+    text-align: center;
+    font-family: 'Righteous', cursive;
+    text-shadow: 1px 1px 1px #888;
+}
+
+.gameViews {
+    background: #00aced;
+    color: #fff;
+    border: 1px solid #888;
+    border-radius: 7px;
+    padding: 3px;
+    font-size: 1em;
+    text-shadow: 1px 1px 1px #888;
+    display: inline-block;
+    margin: 20px;
+    margin-left: 0px;
+ }
+
+ .plus{
+     font-size: 0.6em;
+     color: green;
+ }
+
+ .minus{
+     font-size: 0.6em;
+     color: red;
+ }
+
+ .btn-del, .btn-del:hover, .btn-del:active, .btn-del:visited{
+     background: transparent !important;
+     color: red  !important;
+     border: none  !important;
+     font-size: 1.5em  !important;
+ }
+
+
+
+/*
+    form style end
+*/

@@ -1,11 +1,15 @@
-<h2>An Admin?</h2>
+<link href="../styles/form.css" rel="stylesheet" type="text/css">
 
 <form ng-submit="login()">
-    <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
-        <label>Enter Password:</label>
-        <input class="form-control" type="password" ng-model="password">
+    <h2>An Admin?</h2>
+    <br>
+    <div class="input-group col-lg-12 col-md-12 col-xs-12 col-sm-12">
+        <input class="form-control" type="password" ng-model="password" placeholder="Enter Password">
+        <span class="input-group-btn">
+            <button class="btn btn-primary" type='submit'>Log In</button>
+        </span>
     </div>
-    <button class="btn btn-primary" type='submit'>Log In</button>
+    <br>
+    <h5>Or <a href="#!dashboard">Continue</a> To View Games...</h5>
 </form>
-<h4>Or <a href="#!dashboard">Continue</a> To View Games...</h4>
 
