@@ -128,7 +128,7 @@ io.on("connection", function (socket) {
       updateOnGroupLeave(socket.roomName);
     }
     socket._rooms = [];
-    socket.join("football"); // the football room 
+    socket.join("football"); // the football room
     socket.roomName = "football";
     if(io.sockets.adapter.rooms['football']) football_score.viewers = io.sockets.adapter.rooms['football'].length;
     socket.emit("joined-football", football_score);
@@ -151,7 +151,7 @@ io.on("connection", function (socket) {
       updateOnGroupLeave(socket.roomName);
     }
     socket._rooms = [];
-    socket.join("tennis"); // the badminton room 
+    socket.join("tennis"); // the badminton room
     socket.roomName = "tennis";
     if(io.sockets.adapter.rooms['tennis']) table_tennis.viewers = io.sockets.adapter.rooms["tennis"].length;
     socket.emit("joined-tennis", table_tennis);
@@ -217,13 +217,43 @@ io.on("connection", function (socket) {
     //console.log("no. of users - " + io.sockets.adapter.rooms[socket.roomName].length);
     if(socket.roomName) updateOnGroupLeave(socket.roomName);
   });
+
+
+  ///////////////////////////////////////////////////////
+  ///////////for volleyBall/////////////////////////////
+  ///////////////////////////////////////////////////////
+
+  socket.on("join-volleyball", function () {
+    if(socket.roomName) {
+      socket.leave(socket.roomName);
+      updateOnGroupLeave(socket.roomName);
+    }
+    socket._rooms = [];
+    socket.join("volleyball"); // the badminton room
+    socket.roomName = "volleyball";
+    if(io.sockets.adapter.rooms['volleyball']) volleyBall.viewers = io.sockets.adapter.rooms["volleyball"].length;
+    socket.emit("joined-volleyball", volleyBall);
+    io.in("volleyball").emit("volleyball-updated", volleyBall);
+  });
+
+  socket.on("update-volleyball", function (data) {
+    volleyBall = data;
+    console.log(data);
+    io.in("volleyball").emit("volleyball-updated", volleyBall);
+  });
 });
+
+
+
 
 app.use(express.static(__dirname + "/public"));
 
 http.listen(3000, function () {
   console.log("listening on : 3000");
 });
+
+
+
 
 //////////////////////////////////////////////////////
 ////// function to quit from existing room ///////////
@@ -252,6 +282,10 @@ function updateOnGroupLeave(roomname) {
         io.in("basketball").emit("basketball-updated", basketball);
       }
         break;
+      case "volleyball": if (io.sockets.adapter.rooms["volleyball"]) {
+        volleyBall.viewers = io.sockets.adapter.rooms["volleyball"].length;
+        io.in("volleyball").emit("volleyball-updated", volleyBall);
+      }
 
     }
   }

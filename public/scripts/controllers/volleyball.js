@@ -9,7 +9,7 @@
  */
 angular.module('scoreApp')
   .controller('VolleyballCtrl', function ($scope) {
-    
+
     $scope.volleyballScoreBoard = {}
 
         socket.emit("join-volleyball");
@@ -17,7 +17,7 @@ angular.module('scoreApp')
         socket.on("joined-volleyball", function (data) {
             console.log(data);
             $scope.$apply(function () {
-                $scope.badmintonScoreBoard = data;
+                $scope.volleyballScoreBoard = data;
             });
         });
 
