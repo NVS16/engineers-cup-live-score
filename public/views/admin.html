@@ -1,6 +1,7 @@
+<link href="../styles/admin.css" rel="stylesheet" type="text/css">
 <link href="../styles/slider.css" rel="stylesheet" type="text/css">
 
-<select ng-model="selectedGame" ng-change="changeRoom(selectedGame)">
+<select class="form-control" ng-model="selectedGame" ng-change="changeRoom(selectedGame)">
     <option value="football">Football</option>
     <option value="table-tennis">Table Tennis</option>
     <option value="badminton">Badminton</option>
@@ -14,36 +15,42 @@
 
     <div ng-switch-when="football">
         <form ng-submit="updateFootball()">
-            <div>
-                <b>LIVE : </b>
-                <p>No.of viewers - {{footballScoreBoard.viewers}}</p>
-                <label class="switch">
-                    <input type="checkbox" ng-model="footballScoreBoard.isLive" ng-change="updateFootball()">
-                    <span class="slider round"></span>
-                </label>
-            </div>
-            <div>
-                <b>Half Time : </b>
-                <label class="switch">
-                    <input type="checkbox" ng-model="footballScoreBoard.isHalfTime" ng-change="updateFootball()">
-                    <span class="slider round"></span>
-                </label>
+            <h2>FOOTBALL</h2>
+            <p class="gameViews">{{footballScoreBoard.viewers}} Viewers</p>
+            <div class="row sliders">
+                <div  class="form-group col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                    <h5>LIVE</h5>
+                    <label class="switch">
+                        <input type="checkbox" ng-model="footballScoreBoard.isLive" ng-change="updateFootball()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                    <h5>HALF</h5>
+                    <label class="switch">
+                        <input type="checkbox" ng-model="footballScoreBoard.isHalfTime" ng-change="updateFootball()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </div>
             <div class="row">
                 <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
-                    <input class="form-control" ng-model="footballScoreBoard.team1.name" name="team1name" placeholder="name of team 1">
-                    <div>
-                        <h1>{{ footballScoreBoard.team1.scores.length }}</h1>
+                    <h4>TEAM 1</h4>
+                    <input class="form-control" ng-model="footballScoreBoard.team1.name" name="team1name" placeholder="Name of Team 1">
+                    <h1>{{ footballScoreBoard.team1.scores.length }}</h1>
+                    <div class="input-group">
                         <input class="form-control" ng-model="footBallScorer1" placeholder="scorer's name">
-                        <button class="btn btn-primary" ng-click="addFootballScore1(footBallScorer1)">Add a Goal</button>
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" ng-click="addFootballScore1(footBallScorer1)">ADD GOAL</button>
+                        </span>
                     </div>
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Goal</th>
-                                <th>Goal Scorer</th>
-                                <th>Time</th>
-                                <th>Action</th>
+                                <th class="text-center">Goal</th>
+                                <th class="text-center">Goal Scorer</th>
+                                <th class="text-center">Time</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -52,26 +59,29 @@
                                 <td>{{goal.scorer}}</td>
                                 <td>{{goal.time}}</td>
                                 <td>
-                                    <button class="btn btn-danger" ng-click="delFootballScore1($index)">X</button>
+                                    <button class="btn btn-danger btn-del" ng-click="delFootballScore1($index)">X<!--<i class="fa fa-trash"></i>--></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
                 <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
-                    <input class="form-control" ng-model="footballScoreBoard.team2.name" name="team2name" placeholder="name of team 2">
-                    <div>
-                        <h1>{{ footballScoreBoard.team2.scores.length }}</h1>
+                    <h4>TEAM 2</h4>
+                    <input class="form-control" ng-model="footballScoreBoard.team2.name" name="team2name" placeholder="Name of Team 2">
+                    <h1>{{ footballScoreBoard.team2.scores.length }}</h1>
+                    <div class="input-group">
                         <input class="form-control" ng-model="footBallScorer2" placeholder="scorer's name">
-                        <button class="btn btn-primary" ng-click="addFootballScore2(footBallScorer2)">Add a Goal</button>
+                        <div class="input-group-btn">
+                            <button class="btn btn-success" ng-click="addFootballScore2(footBallScorer2)">ADD GOAL</button>
+                        </div>
                     </div>
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Goal</th>
-                                <th>Goal Scorer</th>
-                                <th>Time</th>
-                                <th>Action</th>
+                                <th class="text-center">Goal</th>
+                                <th class="text-center">Goal Scorer</th>
+                                <th class="text-center">Time</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -80,69 +90,201 @@
                                 <td>{{goal.scorer}}</td>
                                 <td>{{goal.time}}</td>
                                 <td>
-                                    <button class="btn btn-danger" ng-click="delFootballScore2($index)">X</button>
+                                    <button class="btn btn-danger btn-del" ng-click="delFootballScore2($index)">X<!--<i class="fa fa-trash"></i>--></button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Update Team Names</button>
-            <button ng-click="resetGameFootball()" class="btn btn-danger">Reset Game</button>
-
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">UPDATE GAME</button>
+                <button ng-click="resetGameFootball()" class="btn btn-danger">RESET</button>
+            </div>
         </form>
         <form ng-submit="commentFootball(footballComments)">
-            <input class="form-control" ng-model="footballComments" placeholder="make some commentary">
-            <button type="submit" class="btn btn-primary">Comment</button>
+            <textarea rows="3" class="form-control" ng-model="footballComments" placeholder="Make Some Commentary"></textarea>
+            <br>
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">COMMENT</button>
+            </div>
         </form>
         <div class="well" ng-if = "footballScoreBoard.commentary.length > 0">
-            Commentary section : -
-            <div ng-repeat="c in footballScoreBoard.commentary track by $index">
-                <b>{{c.time}}</b>
-                <span>{{c.text}}</span>
-            </div>
+            <h3>FEED</h3>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <th class="text-center">Time</th>
+                    <th colspan="2">Comment</th>
+                    <th class="text-center">Action</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="c in footballScoreBoard.commentary track by $index">
+                        <td>{{c.time}}</td>
+                        <td colspan="2">
+                            <p>
+                                {{c.text}}
+                            </p>
+                        <td>
+                            <button class="btn btn-danger btn-del" ng-click="delFootballComment($index)">X<!--<i class="fa fa-trash"></i>--></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
 
     <div ng-switch-when="table-tennis">
-        <h1>Set No : {{tennisScoreBoard.setNumber}}</h1>
-        <p>No.of viewers - {{tennisScoreBoard.viewers}}</p>
         <form ng-submit="updateTennis()">
-            <div>
-                <b>LIVE : </b>
-                <label class="switch">
-                    <input type="checkbox" ng-model="tennisScoreBoard.isLive" ng-change="updateTennis()">
-                    <span class="slider round"></span>
-                </label>
-            </div>
-            <div>
-                <b>Break : </b>
-                <label class="switch">
-                    <input type="checkbox" ng-model="tennisScoreBoard.isBreak" ng-change="updateTennis()">
-                    <span class="slider round"></span>
-                </label>
+            <h2>TABLE TENNIS</h2>
+            <p class="gameViews">{{tennisScoreBoard.viewers}} Viewers</p>
+            <div class="row sliders">
+                <div  class="form-group col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                    <h5>LIVE</h5>
+                    <label class="switch">
+                        <input type="checkbox" ng-model="tennisScoreBoard.isLive" ng-change="updateTennis()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                    <h5>BREAK</h5>
+                    <label class="switch">
+                        <input type="checkbox" ng-model="tennisScoreBoard.isBreak" ng-change="updateTennis()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <h1>SET {{tennisScoreBoard.setNumber}}</h1>
             </div>
             <div class="well" ng-if="tennisScoreBoard.setHistory.length > 0">
-                <table class="table table-hover">
+                <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                            <th>Set Number</th>
-                            <th>Wins</th>
-                            <th>Losses</th>
+                            <th class="text-center">SET</th>
+                            <th class="text-center">WINNER</th>
+                            <th class="text-center">LOSER</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="set in tennisScoreBoard.setHistory track by $index">
                             <td>{{set.setnumber}}</td>
                             <td>
+                                {{set.winner}} ({{set.winpoints}})
+                            </td>
+                            <td>
+                                {{set.loser}} ({{set.losepoints}})
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                    <h4>PLAYER 1</h4>
+                    <input class="form-control" ng-model="tennisScoreBoard.player1.name" name="tplayer1name" placeholder="Name of Player 1">
+                    <input class="form-control" ng-model="tennisScoreBoard.player1.college" name="tplayer1college" placeholder="College of Player 1">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button ng-click="changeTennisScore1(1)" class="btn btn-success"><b><!--<i class="fa fa-plus"></i>-->+</b></button>
+                        </div>
+                        <input type="number" min="0" class="form-control" ng-model="tennisScoreBoard.player1.points" placeholder="Enter Points">
+                        <div class="input-group-btn">
+                            <button ng-click="changeTennisScore1(-1)" class="btn btn-danger"><b><!--<i class="fa fa-minus"></i>-->-</b></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                    <h4>PLAYER 2</h4>
+                    <input class="form-control" ng-model="tennisScoreBoard.player2.name" name="tplayer2name" placeholder="Name of Player 2">
+                    <input class="form-control" ng-model="tennisScoreBoard.player2.college" name="tplayer2college" placeholder="College of Player 2">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button ng-click="changeTennisScore2(1)" class="btn btn-success"><b><!--<i class="fa fa-plus"></i>-->+</b></button>
+                        </div>
+                        <input class="form-control" ng-model="tennisScoreBoard.player2.points" placeholder="Enter Points">
+                        <div class="input-group-btn">
+                            <button ng-click="changeTennisScore2(-1)" class="btn btn-danger"><b><!--<i class="fa fa-minus"></i>-->-</b></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">UPDATE</button>
+                <button ng-click="endSetTennis()" class="btn btn-warning">FINISH SET</button>
+                <button ng-click="resetGameTennis()" class="btn btn-danger">RESET</button>
+            </div>
+        </form>
+        <form ng-submit="commentTennis(tennisComments)">
+            <textarea rows="3" class="form-control" ng-model="tennisComments" placeholder="Make Some Commentary"></textarea>
+            <br>
+            <div class="text-right">
+            <button type="submit" class="btn btn-primary">COMMENT</button>
+            </div>
+        </form>
+        <div class="well" ng-if = "tennisScoreBoard.commentary.length > 0">
+            <h3>FEED</h3>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <th class="text-center">Time</th>
+                    <th colspan="2">Comment</th>
+                    <th class="text-center">Action</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="c in tennisScoreBoard.commentary track by $index">
+                        <td>{{c.time}}</td>
+                        <td colspan="2">
+                            <p>
+                                {{c.text}}
+                            </p>
+                        <td>
+                            <button class="btn btn-danger btn-del" ng-click="delTennisComment($index)">X<!--<i class="fa fa-trash"></i>--></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-                                {{set.winner}} {{set.winpoints}}
+    <div ng-switch-when="badminton">
+        <form ng-submit="updateBadminton()">
+            <h2>BADMINTON</h2>
+            <p class="gameViews">{{badmintonScoreBoard.viewers}} Viewers</p>
+            <div class="row sliders">
+                <div  class="form-group col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                    <h5>LIVE</h5>
+                    <label class="switch">
+                        <input type="checkbox" ng-model="badmintonScoreBoard.isLive" ng-change="updateBadminton()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                    <h5>BREAK</h5>
+                    <label class="switch">
+                        <input type="checkbox" ng-model="badmintonScoreBoard.isBreak" ng-change="updateBadminton()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <h1>SET {{badmintonScoreBoard.setNumber}}</h1>
+            </div>
+            <div class="well" ng-if="badmintonScoreBoard.setHistory.length > 0">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th class="text-center">SET</th>
+                            <th class="text-center">WINNER</th>
+                            <th class="text-center">LOSER</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="set in badmintonScoreBoard.setHistory track by $index">
+                            <td>{{set.setnumber}}</td>
+                            <td>
+
+                                {{set.winner}} ({{set.winpoints}})
 
                             </td>
                             <td>
 
-                                {{set.loser}} {{set.losepoints}}
+                                {{set.loser}} ({{set.losepoints}})
 
                             </td>
                         </tr>
@@ -151,184 +293,158 @@
             </div>
             <div class="row">
                 <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
-                    <input class="form-control" ng-model="tennisScoreBoard.player1.name" name="tplayer1name" placeholder="name of player 1">
-                    <input class="form-control" ng-model="tennisScoreBoard.player1.college" name="tplayer1college" placeholder="college of player 1">
-                    <div>
-                        <input type="number" class="form-control" ng-model="tennisScoreBoard.player1.points" placeholder="enter points">
-                        <button ng-click="changeTennisScore1(1)" class="btn btn-success">+1</button>
-                        <button ng-click="changeTennisScore1(-1)" class="btn btn-danger">-1</button>
+                    <h4>PLAYER 1</h4>
+                    <input class="form-control" ng-model="badmintonScoreBoard.player1.name" name="bplayer1name" placeholder="Name of Player 1">
+                    <input class="form-control" ng-model="badmintonScoreBoard.player1.college" name="bplayer1college" placeholder="College of Player 1">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button ng-click="changeBadmintonScore1(1)" class="btn btn-success"><b><!--<i class="fa fa-plus"></i>-->+</b></button>
+                        </div>
+                        <input class="form-control" type="number" min="0" ng-model="badmintonScoreBoard.player1.points" placeholder="Enter Points">
+                        <div class="input-group-btn">
+                            <button ng-click="changeBadmintonScore1(-1)" class="btn btn-danger"><b><!--<i class="fa fa-minus"></i>-->-</b></button>                           
+                        </div>
                     </div>
-                    <input class="form-control" ng-model="tennisScoreBoard.player1.setWins">
-                    <button ng-click="changeTennisSet1(1)" class="btn btn-success">+1</button>
-                    <button ng-click="changeTennisSet1(-1)" class="btn btn-danger">-1</button>
                 </div>
                 <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
-                    <input class="form-control" ng-model="tennisScoreBoard.player2.name" name="tplayer2name" placeholder="name of player 2">
-                    <input class="form-control" ng-model="tennisScoreBoard.player2.college" name="tplayer2college" placeholder="college of player 2">
-                    <div>
-                        <input class="form-control" ng-model="tennisScoreBoard.player2.points" placeholder="enter points">
-                        <button ng-click="changeTennisScore2(1)" class="btn btn-success">+1</button>
-                        <button ng-click="changeTennisScore2(-1)" class="btn btn-danger">-1</button>
+                    <h4>PLAYER 2</h4>
+                    <input class="form-control" ng-model="badmintonScoreBoard.player2.name" name="bplayer2name" placeholder="Name of Player 2">
+                    <input class="form-control" ng-model="badmintonScoreBoard.player2.college" name="bplayer2college" placeholder="College of Player 2">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button ng-click="changeBadmintonScore2(1)" class="btn btn-success"><b><!--<i class="fa fa-plus"></i>-->+</b></button>
+                        </div>
+                        <input class="form-control" type="number" min="0" ng-model="badmintonScoreBoard.player2.points" placeholder="Enter Points">
+                        <div class="input-group-btn">
+                            <button ng-click="changeBadmintonScore2(-1)" class="btn btn-danger"><b><!--<i class="fa fa-minus"></i>-->-</b></button>
+                        </div>
                     </div>
-
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-            <button ng-click="endSetTennis()" class="btn btn-warning">Finish Set</button>
-            <button ng-click="resetGameTennis()" class="btn btn-danger">Reset Game</button>
-        </form>
-        <form ng-submit="commentTennis(tennisComments)">
-            <input class="form-control" ng-model="tennisComments" placeholder="make some commentary">
-            <button type="submit" class="btn btn-primary">Comment</button>
-        </form>
-        <div class="well" ng-if = "tennisScoreBoard.commentary.length > 0">
-            Commentary section : -
-            <div ng-repeat="c in tennisScoreBoard.commentary track by $index">
-                <b>{{c.time}}</b>
-                <span>{{c.text}}</span>
+            <div class="text-right">
+            <button type="submit" class="btn btn-primary">UPDATE</button>
+            <button ng-click="endSetBadminton()" class="btn btn-warning">FINISH SET</button>
+            <button ng-click="resetGameBadminton()" class="btn btn-danger">RESET</button>
             </div>
-        </div>
-    </div>
-
-    <div ng-switch-when="badminton">
-            <p>No.of viewers - {{badmintonScoreBoard.viewers}}</p>
-        <div>
-            <b>LIVE : </b>
-            <label class="switch">
-                <input type="checkbox" ng-model="badmintonScoreBoard.isLive" ng-change="updateBadminton()">
-                <span class="slider round"></span>
-            </label>
-        </div>
-        <div>
-            <b>Break : </b>
-            <label class="switch">
-                <input type="checkbox" ng-model="badmintonScoreBoard.isBreak" ng-change="updateBadminton()">
-                <span class="slider round"></span>
-            </label>
-        </div>
-        <div class="well" ng-if="badmintonScoreBoard.setHistory.length > 0">
-            <table class="table table-hover">
+        </form>
+        <form ng-submit="commentBadminton(badmintonComments)">
+            <textarea rows="3" class="form-control" ng-model="badmintonComments" placeholder="Make Some Commentary"></textarea>
+            <br>
+            <div class="text-right">
+            <button type="submit" class="btn btn-primary">COMMENT</button>
+            </div>
+        </form>
+        <div class="well" ng-if = "badmintonScoreBoard.commentary.length > 0">
+            <h3>FEED</h3>
+            <table class="table table-striped table-bordered">
                 <thead>
-                    <tr>
-                        <th>Set Number</th>
-                        <th>Wins</th>
-                        <th>Losses</th>
-                    </tr>
+                    <th class="text-center">Time</th>
+                    <th colspan="2">Comment</th>
+                    <th class="text-center">Action</th>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="set in badmintonScoreBoard.setHistory track by $index">
-                        <td>{{set.setnumber}}</td>
+                    <tr ng-repeat="c in badmintonScoreBoard.commentary track by $index">
+                        <td>{{c.time}}</td>
+                        <td colspan="2">
+                            <p>
+                                {{c.text}}
+                            </p>
                         <td>
-
-                            {{set.winner}} {{set.winpoints}}
-
-                        </td>
-                        <td>
-
-                            {{set.loser}} {{set.losepoints}}
-
+                            <button class="btn btn-danger btn-del" ng-click="delBadmintonComment($index)">X<!--<i class="fa fa-trash"></i>--></button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <h1>Set No : {{badmintonScoreBoard.setNumber}}</h1>
-        <form ng-submit="updateBadminton()">
-
-            <div class="row">
-                <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
-                    <input class="form-control" ng-model="badmintonScoreBoard.player1.name" name="bplayer1name" placeholder="name of player 1">
-                    <input class="form-control" ng-model="badmintonScoreBoard.player1.college" name="bplayer1college" placeholder="college of player 1">
-                    <div>
-                        <input class="form-control" type="number" ng-model="badmintonScoreBoard.player1.points" placeholder="enter points">
-                        <button ng-click="changeBadmintonScore1(1)" class="btn btn-success">+1</button>
-                        <button ng-click="changeBadmintonScore1(-1)" class="btn btn-danger">-1</button>
-                    </div>
-                </div>
-                <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
-                    <input class="form-control" ng-model="badmintonScoreBoard.player2.name" name="bplayer2name" placeholder="name of player 2">
-                    <input class="form-control" ng-model="badmintonScoreBoard.player2.college" name="bplayer2college" placeholder="college of player 2">
-                    <div>
-                        <input class="form-control" type="number" ng-model="badmintonScoreBoard.player2.points" placeholder="enter points">
-                        <button ng-click="changeBadmintonScore2(1)" class="btn btn-success">+1</button>
-                        <button ng-click="changeBadmintonScore2(-1)" class="btn btn-danger">-1</button>
-                    </div>
-
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-            <button ng-click="endSetBadminton()" class="btn btn-warning">Finish Set</button>
-            <button ng-click="resetGameBadminton()" class="btn btn-danger">Reset Game</button>
-        </form>
-        <form ng-submit="commentBadminton(badmintonComments)">
-            <input class="form-control" ng-model="badmintonComments" placeholder="make some commentary">
-            <button type="submit" class="btn btn-primary">Comment</button>
-        </form>
-        <div class="well" ng-if = "badmintonScoreBoard.commentary.length > 0">
-            <div ng-repeat="c in badmintonScoreBoard.commentary track by $index">
-                <b>{{c.time}}</b>
-                <span>{{c.text}}</span>
-            </div>
-        </div>
     </div>
 
     <div ng-switch-when="basketball">
-            <p>No.of viewers - {{basketballScoreBoard.viewers}}</p>
         <form ng-submit="updateBasketball()">
-            <div>
-                <b>LIVE : </b>
-                <label class="switch">
-                    <input type="checkbox" ng-model="basketballScoreBoard.isLive" ng-change="updateBasketball()">
-                    <span class="slider round"></span>
-                </label>
+            <h2>BASKETBALL</h2>
+            <p class="gameViews">{{basketballScoreBoard.viewers}} Viewers</p>
+            <div class="row sliders">
+                <div  class="form-group col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                    <h5>LIVE</h5>
+                    <label class="switch">
+                        <input type="checkbox" ng-model="basketballScoreBoard.isLive" ng-change="updateBasketball()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                    <h5>BREAK</h5>
+                    <label class="switch">
+                        <input type="checkbox" ng-model="basketballScoreBoard.isBreak" ng-change="updateBasketball()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <h3>QUARTER <button ng-click="changeBasketballQuarter(1)" class="btn btn-default plus"><!--<i class="fa fa-plus"></i>-->+</button> {{basketballScoreBoard.quarterNumber}} <button ng-click="changeBasketballQuarter(-1)" class="btn btn-default minus"><!--<i class="fa fa-minus"></i>-->-</button></h3>
             </div>
-            <div>
-                <b>Break : </b>
-                <label class="switch">
-                    <input type="checkbox" ng-model="basketballScoreBoard.isBreak" ng-change="updateTennis()">
-                    <span class="slider round"></span>
-                </label>
-            </div>
-            <p>Current Quarter - {{ basketballScoreBoard.quarterNumber }}</p>
-            <button ng-click="changeBasketballQuarter(1)" class="btn btn-success">+1</button>
-            <button ng-click="changeBasketballQuarter(-1)" class="btn btn-danger">-1</button>
             <div class="row">
                 <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
-                    <input class="form-control" ng-model="basketballScoreBoard.team1.name" name="bplayer1name" placeholder="name of team 1">
-                    <div>
-                        <input class="form-control" type="number" ng-model="basketballScoreBoard.team1.scores" placeholder="enter points">
-                        <button ng-click="changeBasketballScore1(1)" class="btn btn-success">+1</button>
-                        <button ng-click="changeBasketballScore1(-1)" class="btn btn-danger">-1</button>
+                    <h4>TEAM 1</h4>
+                    <input class="form-control" ng-model="basketballScoreBoard.team1.name" name="bplayer1name" placeholder="Name of Team 1">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button ng-click="changeBasketballScore1(1)" class="btn btn-success"><b><!--<i class="fa fa-plus"></i>-->+</b></button>
+                        </div>
+                        <input class="form-control" type="number" min="0" ng-model="basketballScoreBoard.team1.scores" placeholder="Enter Points">
+                        <div class="input-group-btn">
+                            <button ng-click="changeBasketballScore1(-1)" class="btn btn-danger"><b><!--<i class="fa fa-minus"></i>-->-</b></button>
+                        </div>
                     </div>
-
                 </div>
                 <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
-                    <input class="form-control" ng-model="basketballScoreBoard.team2.name" name="bplayer2name" placeholder="name of team 2">
-                    <div>
-                        <input class="form-control" type="number" ng-model="basketballScoreBoard.team2.scores" placeholder="enter points">
-                        <button ng-click="changeBasketballScore2(1)" class="btn btn-success">+1</button>
-                        <button ng-click="changeBasketballScore2(-1)" class="btn btn-danger">-1</button>
+                    <h4>TEAM 2</h4>
+                    <input class="form-control" ng-model="basketballScoreBoard.team2.name" name="bplayer2name" placeholder="Name of Team 2">
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button ng-click="changeBasketballScore2(1)" class="btn btn-success"><b><!--<i class="fa fa-plus"></i>-->+</b></button>
+                        </div>
+                        <input class="form-control" type="number" min="0" ng-model="basketballScoreBoard.team2.scores" placeholder="Enter Points">
+                        <div class="input-group-btn">
+                            <button ng-click="changeBasketballScore2(-1)" class="btn btn-danger"><b><!--<i class="fa fa-minus"></i>-->-</b></button>
+                        </div>
                     </div>
-
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-            <button ng-click="resetGameBasketball()" class="btn btn-danger">Reset Game</button>
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">UPDATE</button>
+                <button ng-click="resetGameBasketball()" class="btn btn-danger">RESET</button>
+            </div>
         </form>
         <form ng-submit="commentBasketball(basketballComments)">
-            <input class="form-control" ng-model="basketballComments" placeholder="make some commentary">
-            <button type="submit" class="btn btn-primary">Comment</button>
+            <textarea rows="3" class="form-control" ng-model="basketballComments" placeholder="Make Some Commentary"></textarea>
+            <br>
+            <div class="text-right">
+                <button type="submit" class="btn btn-primary">COMMENT</button>
+            </div>
         </form>
         <div class="well" ng-if = "basketballScoreBoard.commentary.length > 0">
-            <div ng-repeat="c in basketballScoreBoard.commentary track by $index">
-                <b>{{c.time}}</b>
-                <span>{{c.text}}</span>
-            </div>
+            <h3>FEED</h3>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <th class="text-center">Time</th>
+                    <th colspan="2">Comment</th>
+                    <th class="text-center">Action</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="c in basketballScoreBoard.commentary track by $index">
+                        <td>{{c.time}}</td>
+                        <td colspan="2">
+                            <p>
+                                {{c.text}}
+                            </p>
+                        <td>
+                            <button class="btn btn-danger btn-del" ng-click="delBasketballComment($index)">X<!--<i class="fa fa-trash"></i>--></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <div ng-switch-when="cricket">
-        <h1>Set No : {{cricketScoreBoard.setNumber}}</h1>
+        <h1>SET {{cricketScoreBoard.setNumber}}</h1>
         <form ng-submit="updateCricket()">
             <label class="switch">
                 <input type="checkbox" ng-model="cricketScoreBoard.isLive" ng-change="updateCricket()">
@@ -336,125 +452,175 @@
             </label>
             <div class="row">
                 <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
-                    <input class="form-control" ng-model="badmintonScoreBoard.player1.name" name="bplayer1name" placeholder="name of player 1">
-                    <input class="form-control" ng-model="badmintonScoreBoard.player1.college" name="bplayer1college" placeholder="college of player 1">
+                    <input class="form-control" ng-model="badmintonScoreBoard.player1.name" name="bplayer1name" placeholder="Name of Player 1">
+                    <input class="form-control" ng-model="badmintonScoreBoard.player1.college" name="bplayer1college" placeholder="College of Player 1">
                     <div>
-                        <input class="form-control" type="number" ng-model="badmintonScoreBoard.player1.points" placeholder="enter points">
-                        <button ng-click="changeBadmintonScore1(1)" class="btn btn-success">+1</button>
-                        <button ng-click="changeBadmintonScore1(-1)" class="btn btn-danger">-1</button>
+                        <input class="form-control" type="number" min="0" ng-model="badmintonScoreBoard.player1.points" placeholder="Enter Points">
+                        <button ng-click="changeBadmintonScore1(1)" class="btn btn-success"><b><!--<i class="fa fa-plus"></i>-->+</b></button>
+                        <button ng-click="changeBadmintonScore1(-1)" class="btn btn-danger"><b><!--<i class="fa fa-minus"></i>-->-</b></button>
                     </div>
-                    <input class="form-control" type="number" ng-model="badmintonScoreBoard.player1.setWins">
-                    <button ng-click="changeBadmintonSet1(1)" class="btn btn-success">+1</button>
-                    <button ng-click="changeBadmintonSet1(-1)" class="btn btn-danger">-1</button>
+                    <input class="form-control" type="number" min="0" ng-model="badmintonScoreBoard.player1.setWins">
+                    <button ng-click="changeBadmintonSet1(1)" class="btn btn-success"><b><!--<i class="fa fa-plus"></i>-->+</b></button>
+                    <button ng-click="changeBadmintonSet1(-1)" class="btn btn-danger"><b><!--<i class="fa fa-minus"></i>-->-</b></button>
                 </div>
                 <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
-                    <input class="form-control" ng-model="badmintonScoreBoard.player2.name" name="bplayer2name" placeholder="name of player 2">
-                    <input class="form-control" ng-model="badmintonScoreBoard.player2.college" name="bplayer2college" placeholder="college of player 2">
+                    <input class="form-control" ng-model="badmintonScoreBoard.player2.name" name="bplayer2name" placeholder="Name of Player 2">
+                    <input class="form-control" ng-model="badmintonScoreBoard.player2.college" name="bplayer2college" placeholder="College of Player 2">
                     <div>
-                        <input class="form-control" type="number" ng-model="badmintonScoreBoard.player2.points" placeholder="enter points">
-                        <button ng-click="changeBadmintonScore2(1)" class="btn btn-success">+1</button>
-                        <button ng-click="changeBadmintonScore2(-1)" class="btn btn-danger">-1</button>
+                        <input class="form-control" type="number" min="0" ng-model="badmintonScoreBoard.player2.points" placeholder="Enter Points">
+                        <button ng-click="changeBadmintonScore2(1)" class="btn btn-success"><b><!--<i class="fa fa-plus"></i>-->+</b></button>
+                        <button ng-click="changeBadmintonScore2(-1)" class="btn btn-danger"><b><!--<i class="fa fa-minus"></i>-->-</b></button>
                     </div>
-                    <input class="form-control" type="number" ng-model="badmintonScoreBoard.player2.setWins">
-                    <button ng-click="changeBadmintonSet2(1)" class="btn btn-success">+1</button>
-                    <button ng-click="changeBadmintonSet2(-1)" class="btn btn-danger">-1</button>
+                    <input class="form-control" type="number" min="0" ng-model="badmintonScoreBoard.player2.setWins">
+                    <button ng-click="changeBadmintonSet2(1)" class="btn btn-success"><b><!--<i class="fa fa-plus"></i>-->+</b></button>
+                    <button ng-click="changeBadmintonSet2(-1)" class="btn btn-danger"><b><!--<i class="fa fa-minus"></i>-->-</b></button>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Update</button>
-            <button ng-click="endSetBadminton()" class="btn btn-warning">Finish Set</button>
-            <button ng-click="resetGameBadminton()" class="btn btn-danger">Reset Game</button>
+            <button type="submit" class="btn btn-primary">UPDATE</button>
+            <button ng-click="endSetBadminton()" class="btn btn-warning">FINISH SET</button>
+            <button ng-click="resetGameBadminton()" class="btn btn-danger">RESET</button>
         </form>
         <form ng-submit="commentBadminton(badmintonComments)">
-            <input class="form-control" ng-model="badmintonComments" placeholder="make some commentary">
-            <button type="submit" class="btn btn-primary">Comment</button>
+            <textarea rows="3" class="form-control" ng-model="badmintonComments" placeholder="Make Some Commentary"></textarea>
+            <br>
+            <button type="submit" class="btn btn-primary">COMMENT</button>
         </form>
-        <div class="well">
-            <div ng-repeat="c in badmintonScoreBoard.commentary track by $index">
-                <b>{{c.time}}</b>
-                <span>{{c.text}}</span>
-            </div>
+        <div class="well" ng-if = "cricketScoreBoard.commentary.length > 0">
+            <h3>FEED</h3>
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <th class="text-center">Time</th>
+                    <th colspan="2">Comment</th>
+                    <th class="text-center">Action</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="c in cricketScoreBoard.commentary track by $index">
+                        <td>{{c.time}}</td>
+                        <td colspan="2">
+                            <p>
+                                {{c.text}}
+                            </p>
+                        <td>
+                            <button class="btn btn-danger btn-del" ng-click="delCricketComment($index)">X<!--<i class="fa fa-trash"></i>--></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <div ng-switch-when="volleyball">
-        <p>No.of viewers - {{volleyballScoreBoard.viewers}}</p>
-    <div>
-        <b>LIVE : </b>
-        <label class="switch">
-            <input type="checkbox" ng-model="volleyballScoreBoard.isLive" ng-change="updateVolleyball()">
-            <span class="slider round"></span>
-        </label>
-    </div>
-    <div>
-        <b>Break : </b>
-        <label class="switch">
-            <input type="checkbox" ng-model="volleyballScoreBoard.isBreak" ng-change="updateVolleyball()">
-            <span class="slider round"></span>
-        </label>
-    </div>
-    <div class="well" ng-if="volleyballScoreBoard.setHistory.length > 0">
-        <table class="table table-hover">
+
+    <form ng-submit="updateVolleyball()">
+        <h2>VOLLEYBALL</h2>
+            <p class="gameViews">{{volleyballScoreBoard.viewers}} Viewers</p>
+            <div class="row sliders">
+                <div  class="form-group col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                    <h5>LIVE</h5>
+                    <label class="switch">
+                        <input type="checkbox" ng-model="volleyballScoreBoard.isLive" ng-change="updateVolleyball()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-xs-6 col-sm-6">
+                    <h5>BREAK</h5>
+                    <label class="switch">
+                        <input type="checkbox" ng-model="volleyballScoreBoard.isBreak" ng-change="updateVolleyball()">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <h1>SET {{volleyballScoreBoard.setNumber}}</h1>
+            </div>
+        <div class="well" ng-if="volleyballScoreBoard.setHistory.length > 0">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">SET</th>
+                        <th class="text-center">WINNER</th>
+                        <th class="text-center">LOSER</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="set in volleyballScoreBoard.setHistory track by $index">
+                        <td>{{set.setnumber}}</td>
+                        <td>
+
+                            {{set.winner}} ({{set.winpoints}})
+
+                        </td>
+                        <td>
+
+                            {{set.loser}} ({{set.losepoints}})
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                <h4>TEAM 1</h4>
+                <input class="form-control" ng-model="volleyballScoreBoard.player1.name" name="bplayer1name" placeholder="Name of Player 1">
+                <input class="form-control" ng-model="volleyballScoreBoard.player1.college" name="bplayer1college" placeholder="College of Player 1">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button ng-click="changeVolleyballScore1(1)" class="btn btn-success"><b><!--<i class="fa fa-plus"></i>-->+</b></button>
+                    </div>
+                    <input class="form-control" type="number" min="0" ng-model="volleyballScoreBoard.player1.points" placeholder="Enter Points">
+                    <div class="input-group-btn">
+                        <button ng-click="changeVolleyballScore1(-1)" class="btn btn-danger"><b><!--<i class="fa fa-minus"></i>-->-</b></button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
+                <h4>TEAM 2</h4>
+                <input class="form-control" ng-model="volleyballScoreBoard.player2.name" name="bplayer2name" placeholder="Name of Player 2">
+                <input class="form-control" ng-model="volleyballScoreBoard.player2.college" name="bplayer2college" placeholder="College of Player 2">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button ng-click="changeVolleyballScore2(1)" class="btn btn-success"><b><!--<i class="fa fa-plus"></i>-->+</b></button>
+                    </div>
+                    <input class="form-control" type="number" min="0" ng-model="volleyballScoreBoard.player2.points" placeholder="Enter Points">
+                    <div class="input-group-btn">
+                        <button ng-click="changeVolleyballScore2(-1)" class="btn btn-danger"><b><!--<i class="fa fa-minus"></i>-->-</b></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary">UPDATE</button>
+            <button ng-click="endSetVolleyball()" class="btn btn-warning">FINISH SET</button>
+            <button ng-click="resetGameVolleyball()" class="btn btn-danger">RESET</button>
+        </div>
+    </form>
+    <form ng-submit="commentVolleyball(volleyballComments)">
+        <textarea rows="3" class="form-control" ng-model="volleyballComments" placeholder="Make Some Commentary"></textarea>
+        <br>
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary">COMMENT</button>
+        </div>
+    </form>
+    <div class="well" ng-if = "volleyballScoreBoard.commentary.length > 0">
+        <h3>FEED</h3>
+        <table class="table table-striped table-bordered">
             <thead>
-                <tr>
-                    <th>Set Number</th>
-                    <th>Wins</th>
-                    <th>Losses</th>
-                </tr>
+                <th class="text-center">Time</th>
+                <th colspan="2">Comment</th>
+                <th class="text-center">Action</th>
             </thead>
             <tbody>
-                <tr ng-repeat="set in volleyballScoreBoard.setHistory track by $index">
-                    <td>{{set.setnumber}}</td>
+                <tr ng-repeat="c in volleyballScoreBoard.commentary track by $index">
+                    <td>{{c.time}}</td>
+                    <td colspan="2">
+                        <p>
+                            {{c.text}}
+                        </p>
                     <td>
-
-                        {{set.winner}} {{set.winpoints}}
-
-                    </td>
-                    <td>
-
-                        {{set.loser}} {{set.losepoints}}
-
+                        <button class="btn btn-danger btn-del" ng-click="delVolleyballComment($index)">X<!--<i class="fa fa-trash"></i>--></button>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div>
-    <h1>Set No : {{volleyballScoreBoard.setNumber}}</h1>
-    <form ng-submit="updateVolleyball()">
-
-        <div class="row">
-            <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
-                <input class="form-control" ng-model="volleyballScoreBoard.player1.name" name="bplayer1name" placeholder="name of player 1">
-                <input class="form-control" ng-model="volleyballScoreBoard.player1.college" name="bplayer1college" placeholder="college of player 1">
-                <div>
-                    <input class="form-control" type="number" ng-model="volleyballScoreBoard.player1.points" placeholder="enter points">
-                    <button ng-click="changeVolleyballScore1(1)" class="btn btn-success">+1</button>
-                    <button ng-click="changeVolleyballScore1(-1)" class="btn btn-danger">-1</button>
-                </div>
-            </div>
-            <div class="form-group col-lg-6 col-md-6 col-xs-12 col-sm-12">
-                <input class="form-control" ng-model="volleyballScoreBoard.player2.name" name="bplayer2name" placeholder="name of player 2">
-                <input class="form-control" ng-model="volleyballScoreBoard.player2.college" name="bplayer2college" placeholder="college of player 2">
-                <div>
-                    <input class="form-control" type="number" ng-model="volleyballScoreBoard.player2.points" placeholder="enter points">
-                    <button ng-click="changeVolleyballScore2(1)" class="btn btn-success">+1</button>
-                    <button ng-click="changeVolleyballScore2(-1)" class="btn btn-danger">-1</button>
-                </div>
-
-            </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-        <button ng-click="endSetVolleyball()" class="btn btn-warning">Finish Set</button>
-        <button ng-click="resetGameVolleyball()" class="btn btn-danger">Reset Game</button>
-    </form>
-    <form ng-submit="commentVolleyball(volleyballComments)">
-        <input class="form-control" ng-model="volleyballComments" placeholder="make some commentary">
-        <button type="submit" class="btn btn-primary">Comment</button>
-    </form>
-    <div class="well" ng-if = "volleyballScoreBoard.commentary.length > 0">
-        <div ng-repeat="c in volleyballScoreBoard.commentary track by $index">
-            <b>{{c.time}}</b>
-            <span>{{c.text}}</span>
-        </div>
     </div>
 </div>
 </div>

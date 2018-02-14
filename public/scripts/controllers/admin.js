@@ -22,6 +22,7 @@ angular.module('scoreApp')
         });}
 
         var defaultfootballScoreBoard = {
+            "viewers": 1,
             "isHalfTime": false,
             "isLive": false,
             "team1": {
@@ -75,12 +76,17 @@ angular.module('scoreApp')
 
         $scope.commentFootball = function (text) {
             var d = new Date();
-            $scope.footballScoreBoard.commentary.push({
+            $scope.footballScoreBoard.commentary.unshift({
                 "time": d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
                 "text": text
             });
             $scope.updateFootball();
         }
+
+        $scope.delFootballComment = function(index) {
+            $scope.footballScoreBoard.commentary.splice(index, 1);
+            $scope.updateFootball();
+        };
 
 
         $scope.resetGameFootball = function () {
@@ -95,6 +101,7 @@ angular.module('scoreApp')
         /////////////////////////////////////////////////
 
         $scope.tennisScoreBoard = {
+            "viewers": 1,
             "setNumber": 1,
             "isBreak": false,
             "isLive": false,
@@ -121,31 +128,25 @@ angular.module('scoreApp')
 
         $scope.commentTennis = function (text) {
             var d = new Date();
-            $scope.tennisScoreBoard.commentary.push({
+            $scope.tennisScoreBoard.commentary.unshift({
                 "time": d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
                 "text": text
             });
             $scope.updateTennis();
         }
 
+        $scope.delTennisComment = function(index) {
+            $scope.tennisScoreBoard.commentary.splice(index, 1);
+            $scope.updateTennis();
+        };
 
         $scope.changeTennisScore1 = function (i) {
             $scope.tennisScoreBoard.player1.points += i;
             $scope.updateTennis();
         };
 
-        $scope.changeTennisSet1 = function (i) {
-            $scope.tennisScoreBoard.player1.setWins += i;
-            $scope.updateTennis();
-        };
-
         $scope.changeTennisScore2 = function (i) {
             $scope.tennisScoreBoard.player2.points += i;
-            $scope.updateTennis();
-        };
-
-        $scope.changeTennisSet2 = function (i) {
-            $scope.tennisScoreBoard.player2.setWins += i;
             $scope.updateTennis();
         };
 
@@ -167,8 +168,8 @@ angular.module('scoreApp')
                     "setnumber": $scope.tennisScoreBoard.setNumber,
                     "winner": $scope.tennisScoreBoard.player2.name,
                     "loser": $scope.tennisScoreBoard.player1.name,
-                    "win-points": $scope.tennisScoreBoard.player2.points,
-                    "loose-points": $scope.tennisScoreBoard.player1.points
+                    "winpoints": $scope.tennisScoreBoard.player2.points,
+                    "loosepoints": $scope.tennisScoreBoard.player1.points
                 });
                 $scope.tennisScoreBoard.player1.points = $scope.tennisScoreBoard.player2.points = 0;
                 $scope.tennisScoreBoard.player2.setWins += 1;
@@ -190,6 +191,7 @@ angular.module('scoreApp')
         /////////////////////////////////////////////////
 
         $scope.badmintonScoreBoard = {
+            "viewers": 1,
             "setNumber": 1,
             "isBreak": false,
             "isLive": false,
@@ -217,31 +219,25 @@ angular.module('scoreApp')
 
         $scope.commentBadminton = function (text) {
             var d = new Date();
-            $scope.badmintonScoreBoard.commentary.push({
+            $scope.badmintonScoreBoard.commentary.unshift({
                 "time": d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
                 "text": text
             });
             $scope.updateBadminton();
         }
 
+        $scope.delBadmintonComment = function(index) {
+            $scope.badmintonScoreBoard.commentary.splice(index, 1);
+            $scope.updateBadminton();
+        };
 
         $scope.changeBadmintonScore1 = function (i) {
             $scope.badmintonScoreBoard.player1.points += i;
             $scope.updateBadminton();
         };
 
-        $scope.changeBadmintonSet1 = function (i) {
-            $scope.badmintonScoreBoard.player1.setWins += i;
-            $scope.updateBadminton();
-        };
-
         $scope.changeBadmintonScore2 = function (i) {
             $scope.badmintonScoreBoard.player2.points += i;
-            $scope.updateBadminton();
-        };
-
-        $scope.changeBadmintonSet2 = function (i) {
-            $scope.badmintonScoreBoard.player2.setWins += i;
             $scope.updateBadminton();
         };
 
@@ -286,6 +282,7 @@ angular.module('scoreApp')
         /////////////////////////////////////////////////
 
         $scope.basketballScoreBoard = {
+            "viewers": 1,
             "quarterNumber" : 1 ,
             "isBreak": false,
             "isLive": false,
@@ -329,13 +326,16 @@ angular.module('scoreApp')
 
         $scope.commentBasketball = function (text) {
             var d = new Date();
-            $scope.basketballScoreBoard.commentary.push({
+            $scope.basketballScoreBoard.commentary.unshift({
                 "time": d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
                 "text": text
             });
             $scope.updateBasketball();
         };
-
+        $scope.delBasketballComment = function(index) {
+            $scope.basketballScoreBoard.commentary.splice(index, 1);
+            $scope.updateBasketball();
+        };
         /////////////////////////////////////////////////
         ////////// for volleyball scoreboard /////////////
         /////////////////////////////////////////////////
@@ -367,21 +367,19 @@ angular.module('scoreApp')
 
         $scope.commentVolleyball = function (text) {
             var d = new Date();
-            $scope.volleyballScoreBoard.commentary.push({
+            $scope.volleyballScoreBoard.commentary.unshift({
                 "time": d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
                 "text": text
             });
             $scope.updateVolleyball();
         }
-
-
-        $scope.changeVolleyballScore1 = function (i) {
-            $scope.volleyballScoreBoard.player1.points += i;
+        $scope.delVolleyballComment = function(index) {
+            $scope.volleyballScoreBoard.commentary.splice(index, 1);
             $scope.updateVolleyball();
         };
 
-        $scope.changeVolleyballSet1 = function (i) {
-            $scope.volleyballScoreBoard.player1.setWins += i;
+        $scope.changeVolleyballScore1 = function (i) {
+            $scope.volleyballScoreBoard.player1.points += i;
             $scope.updateVolleyball();
         };
 
@@ -390,10 +388,6 @@ angular.module('scoreApp')
             $scope.updateVolleyball();
         };
 
-        $scope.changeVolleyballSet2 = function (i) {
-            $scope.volleyballScoreBoard.player2.setWins += i;
-            $scope.updateVolleyball();
-        };
 
         $scope.endSetVolleyball = function () {
             if ($scope.volleyballScoreBoard.player1.points > $scope.volleyballScoreBoard.player2.points) {
