@@ -1,6 +1,30 @@
 <link href="../styles/football.css" rel="stylesheet" type="text/css">
 
 <div ng-if="tennisScoreBoard.isLive">
+    <div class="well" ng-if="tennisScoreBoard.matchWinner !== 'not declared'">
+        <div class="col-sm-6">
+            <h1>{{tennisScoreBoard.player1.setWins}}</h1>
+            <p>{{tennisScoreBoard.player1.name}}</p>
+            <p>{{tennisScoreBoard.player1.college}}</p>
+
+        </div>
+        <div class="col-sm-6">
+            <h1>{{tennisScoreBoard.player2.setWins}}</h1>
+            <p>{{tennisScoreBoard.player2.name}}</p>
+            <p>{{tennisScoreBoard.player2.college}}</p>
+        </div>
+        <div ng-switch="tennisScoreBoard.matchWinner">
+            <div ng-switch-when="player1">
+                <p>{{tennisScoreBoard.player1.name}} has won the match</p>
+            </div>
+            <div ng-switch-when="player2">
+                <p>{{tennisScoreBoard.player2.name}} has won the match</p>
+            </div>
+            <div ng-switch-when="none">
+                <p>Match was a draw</p>
+            </div>
+        </div>
+    </div>
     <p>Current Set - {{ tennisScoreBoard.setNumber }}</p>
     <div class="well" ng-if="tennisScoreBoard.setHistory.length > 0">
         <table class="table table-hover">
@@ -29,7 +53,7 @@
         </table>
     </div>
     <div class="row">
-        
+
         <div class="col-sm-6">
             <p>Name - {{ tennisScoreBoard.player1.name }}</p>
             <p>College - {{ tennisScoreBoard.player1.college }}</p>
@@ -45,7 +69,7 @@
         </div>
     </div>
 
-    <div class="well" ng-if = "tennisScoreBoard.commentary.length > 0">
+    <div class="well" ng-if="tennisScoreBoard.commentary.length > 0">
         Commentary section : -
         <div ng-repeat="c in tennisScoreBoard.commentary track by $index">
             <b>{{c.time}}</b>

@@ -1,6 +1,29 @@
 <link href="../styles/football.css" rel="stylesheet" type="text/css">
 
 <div ng-if="footballScoreBoard.isLive">
+
+    <div class="well" ng-if="footballScoreBoard.matchWinner !== 'not declared'">
+        <div class="col-sm-6">
+            <h1>{{footballScoreBoard.team1.scores.length}}</h1>
+            <p>{{footballScoreBoard.team1.name}}</p>
+        </div>
+        <div class="col-sm-6">
+            <h1>{{footballScoreBoard.team2.scores.length}}</h1>
+            <p>{{footballScoreBoard.team2.name}}</p>
+        </div>
+        <div ng-switch="footballScoreBoard.matchWinner">
+            <div ng-switch-when="player1">
+                <p>{{footballScoreBoard.team1.name}} has won the match</p>
+            </div>
+            <div ng-switch-when="player2">
+                <p>{{footballScoreBoard.team2.name}} has won the match</p>
+            </div>
+            <div ng-switch-when="none">
+                <p>Match was a draw</p>
+            </div>
+        </div>
+    </div>
+
     <div class="well">
         <div class="row">
             <div ng-if="footballScoreBoard.isHalfTime" class="half-time">HALF - TIME</div>
@@ -57,7 +80,7 @@
         </div>
     </div>
 
-    <div class="well" ng-if = "footballScoreBoard.commentary.length > 0">
+    <div class="well" ng-if="footballScoreBoard.commentary.length > 0">
         Commentary section : -
         <div ng-repeat="c in footballScoreBoard.commentary track by $index">
             <b>{{c.time}}</b>

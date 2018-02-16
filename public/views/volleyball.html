@@ -1,4 +1,29 @@
 <div ng-if="volleyballScoreBoard.isLive">
+    <p>Current Set - {{ volleyballScoreBoard.setNumber }}</p>
+    <div class="well" ng-if="volleyballScoreBoard.matchWinner !== 'not declared'">
+        <div class="col-sm-6">
+            <h1>{{volleyballScoreBoard.team1.setWins}}</h1>
+            <p>{{volleyballScoreBoard.team1.name}}</p>
+            <p>{{volleyballScoreBoard.team1.college}}</p>
+
+        </div>
+        <div class="col-sm-6">
+            <h1>{{volleyballScoreBoard.team2.setWins}}</h1>
+            <p>{{volleyballScoreBoard.team2.name}}</p>
+            <p>{{volleyballScoreBoard.team2.college}}</p>
+        </div>
+        <div ng-switch="volleyballScoreBoard.matchWinner">
+            <div ng-switch-when="team1">
+                <p>{{volleyballScoreBoard.team1.name}} has won the match</p>
+            </div>
+            <div ng-switch-when="team2">
+                <p>{{volleyballScoreBoard.team2.name}} has won the match</p>
+            </div>
+            <div ng-switch-when="none">
+                <p>Match was a draw</p>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="well" ng-if="volleyballScoreBoard.setHistory.length > 0">
             <table class="table table-hover">
@@ -26,23 +51,23 @@
                 </tbody>
             </table>
         </div>
-        <p>Current Set - {{ volleyballScoreBoard.setNumber }}</p>
+
         <div class="col-sm-6">
-            <p>Name - {{ volleyballScoreBoard.player1.name }}</p>
-            <p>College - {{ volleyballScoreBoard.player1.college }}</p>
-            <p>Points - {{ volleyballScoreBoard.player1.points }}</p>
-            <p>Set wins - {{ volleyballScoreBoard.player1.setWins }}</p>
+            <p>Name - {{ volleyballScoreBoard.team1.name }}</p>
+            <p>College - {{ volleyballScoreBoard.team1.college }}</p>
+            <p>Points - {{ volleyballScoreBoard.team1.points }}</p>
+            <p>Set wins - {{ volleyballScoreBoard.team1.setWins }}</p>
 
         </div>
         <div class="col-sm-6">
-            <p>Name - {{ volleyballScoreBoard.player2.name }}</p>
-            <p>College - {{ volleyballScoreBoard.player2.college }}</p>
-            <p>Points - {{ volleyballScoreBoard.player2.points }}</p>
-            <p>Set wins - {{ volleyballScoreBoard.player2.setWins }}</p>
+            <p>Name - {{ volleyballScoreBoard.team2.name }}</p>
+            <p>College - {{ volleyballScoreBoard.team2.college }}</p>
+            <p>Points - {{ volleyballScoreBoard.team2.points }}</p>
+            <p>Set wins - {{ volleyballScoreBoard.team2.setWins }}</p>
         </div>
     </div>
 
-    <div class="well" ng-if = "volleyballScoreBoard.commentary.length > 0">
+    <div class="well" ng-if="volleyballScoreBoard.commentary.length > 0">
         <div ng-repeat="c in volleyballScoreBoard.commentary track by $index">
             <b>{{c.time}}</b>
             <span>{{c.text}}</span>

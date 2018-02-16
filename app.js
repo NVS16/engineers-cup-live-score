@@ -20,6 +20,7 @@ var football_score = {
     "name": null,
     "scores": [/*{ "time": 0, "scorer": null }*/]
   },
+  "matchWinner" : "not declared",
   "commentary": [/*{ "time": "0000", "text": "Comments" }*/]
 };
 
@@ -41,6 +42,7 @@ var table_tennis = {
     "points": 0,
     "setWins": 0
   },
+  "matchWinner" : "not declared",
   "commentary": [/*{ "time": "00", "text": "Comments" }*/]
 };
 
@@ -60,6 +62,7 @@ var badminton = {
     "points": 0,
     "setWins": 0
   },
+  "matchWinner" : "not declared",
   "commentary": [/*{ "time": "00", "text": "Comments" }*/]
 };
 
@@ -76,6 +79,7 @@ var basketball = {
     "name": null,
     "scores": 0
   },
+  "matchWinner" : "not declared",
   "commentary": [/*{ "time": "0000", "text": "Comments" }*/]
 };
 
@@ -95,6 +99,7 @@ var volleyBall = {
     "points": 0,
     "setWins": 0
   },
+  "matchWinner" : "not declared",
   "commentary": [/*{ "time": "00", "text": "Comments" }*/]
 };
 
