@@ -65,11 +65,13 @@
         </table>
     </div>
 
-    <div class="well" ng-if="tennisScoreBoard.commentary.length > 0">
-        Commentary section : -
+    <div class="well comment-section" ng-if="tennisScoreBoard.commentary.length > 0">
+        <b>FEED</b> :-
         <div ng-repeat="c in tennisScoreBoard.commentary track by $index">
+            <div class = "comment">
             <b>{{c.time}}</b>
             <span>{{c.text}}</span>
+            </div>
         </div>
     </div>
 

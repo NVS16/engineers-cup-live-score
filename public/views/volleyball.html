@@ -2,8 +2,10 @@
 
 <div ng-if="volleyballScoreBoard.isLive">
     <div class="well" ng-if="volleyballScoreBoard.matchWinner !== 'not declared'">
-            <h4><b>MATCH RESULT</b></h4>
-            <div class="col-sm-6 col-xs-6 col-lg-6 col-md-6">
+        <h4>
+            <b>MATCH RESULT</b>
+        </h4>
+        <div class="col-sm-6 col-xs-6 col-lg-6 col-md-6">
             <h1>{{volleyballScoreBoard.team1.setWins}}</h1>
             <p>{{volleyballScoreBoard.team1.name}}</p>
 
@@ -14,32 +16,38 @@
         </div>
         <div ng-switch="volleyballScoreBoard.matchWinner">
             <div ng-switch-when="team1">
-                <h5 class="text-success"><b>{{volleyballScoreBoard.team1.name}}</b> Has Won the Match!</h5>
+                <h5 class="text-success">
+                    <b>{{volleyballScoreBoard.team1.name}}</b> Has Won the Match!</h5>
             </div>
             <div ng-switch-when="team2">
-                <h5 class="text-success"><b>{{volleyballScoreBoard.team2.name}}</b> Has Won the Match!</h5>
+                <h5 class="text-success">
+                    <b>{{volleyballScoreBoard.team2.name}}</b> Has Won the Match!</h5>
             </div>
             <div ng-switch-when="none">
-                <h5 class="text-info">Match Was a <b>Draw</b></h5>
+                <h5 class="text-info">Match Was a
+                    <b>Draw</b>
+                </h5>
             </div>
         </div>
     </div>
-    <div class="well" ng-if="volleyballScoreBoard.setHistory.length > 0">
+    <div class="well">
         <h1>Set {{ volleyballScoreBoard.setNumber }}</h1>
         <div class="half-time" ng-if="volleyballScoreBoard.isBreak">Break time!</div>
         <div class="row">
             <div class="col-sm-6">
                 <h2>{{ volleyballScoreBoard.team1.points }}</h2>
                 <h4>{{ volleyballScoreBoard.team1.name }}</h4>
-                <h4><b>{{ volleyballScoreBoard.team1.setWins }}</b> Set Wins</h4>
+                <h4>
+                    <b>{{ volleyballScoreBoard.team1.setWins }}</b> Set Wins</h4>
             </div>
             <div class="col-sm-6">
                 <h2>{{ volleyballScoreBoard.team2.points }}</h2>
                 <h4>{{ volleyballScoreBoard.team2.name }}</h4>
-                <h4><b>{{ volleyballScoreBoard.team2.setWins }}</b> Set Wins</h4>
+                <h4>
+                    <b>{{ volleyballScoreBoard.team2.setWins }}</b> Set Wins</h4>
             </div>
         </div>
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered" ng-if="volleyballScoreBoard.setHistory.length > 0">
             <thead>
                 <tr>
                     <th class="text-center">SET</th>
@@ -62,13 +70,16 @@
                     </td>
                 </tr>
             </tbody>
-        </table>    
+        </table>
     </div>
 
-    <div class="well" ng-if="volleyballScoreBoard.commentary.length > 0">
+    <div class="well comment-section" ng-if="volleyballScoreBoard.commentary.length > 0">
+        <b>FEED</b> :-
         <div ng-repeat="c in volleyballScoreBoard.commentary track by $index">
-            <b>{{c.time}}</b>
-            <span>{{c.text}}</span>
+            <div class="comment">
+                <b>{{c.time}}</b>
+                <span>{{c.text}}</span>
+            </div>
         </div>
     </div>
 </div>

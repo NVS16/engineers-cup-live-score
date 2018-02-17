@@ -71,10 +71,13 @@
             </div>
         </div>
     
-    <div class="well" ng-if = "cricketScoreBoard.commentary.length > 0">
+    <div class="well comment-section" ng-if = "cricketScoreBoard.commentary.length > 0">
+        <b>FEED</b> :-
         <div ng-repeat="c in cricketScoreBoard.commentary track by $index">
+            <div class="comment">
             <b>{{c.time}}</b>
             <span>{{c.text}}</span>
+            </div>
         </div>
     </div>
     <div class="half-time" ng-if="cricketScoreBoard.isBreak">Half time!</div>
