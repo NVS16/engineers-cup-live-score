@@ -22,6 +22,8 @@ angular.module('scoreApp')
             });
         }
 
+        var viewers = 0;
+        
         var defaultfootballScoreBoard = {
             "viewers": 1,
             "isHalfTime": false,
@@ -34,6 +36,7 @@ angular.module('scoreApp')
                 "name": null,
                 "scores": [/*{ "time": 0, "scorer": null }*/]
             },
+            "matchWinner" : "not declared",
             "commentary": [/*{ "time": "0000", "text": "Comments" }*/]
         };
 
@@ -88,9 +91,9 @@ angular.module('scoreApp')
 
         $scope.finishFootball = function () {
             if ($scope.footballScoreBoard.team2.scores.length > $scope.footballScoreBoard.team1.scores.length)
-                $scope.footballScoreBoard.matchWinner = "player2";
+                $scope.footballScoreBoard.matchWinner = "team2";
             else if ($scope.footballScoreBoard.team2.scores.length < $scope.footballScoreBoard.team1.scores.length)
-                $scope.footballScoreBoard.matchWinner = "player1";
+                $scope.footballScoreBoard.matchWinner = "team1";
             else
                 $scope.footballScoreBoard.matchWinner = "none";
             $scope.updateFootball();
@@ -103,7 +106,9 @@ angular.module('scoreApp')
 
 
         $scope.resetGameFootball = function () {
+            viewers = $scope.footballScoreBoard.viewers;
             $scope.footballScoreBoard = defaultfootballScoreBoard;
+            $scope.footballScoreBoard.viewers = viewers;
             $scope.updateFootball();
         };
 
@@ -196,22 +201,24 @@ angular.module('scoreApp')
 
         $scope.finishTennis = function () {
             $scope.endSetTennis();
-            $scope.tennisScoreBoard.setNumber = 3;
-            if ($scope.tennisScoreBoard.player1.setWins > $scope.tennisScoreBoard.player2.setWins) {
-                $scope.tennisScoreBoard.matchWinner = "player1"
-            } else if ($scope.tennisScoreBoard.player1.setWins < $scope.tennisScoreBoard.player2.setWins) {
-                $scope.tennisScoreBoard.matchWinner = "player2"
-            } else {
-                $scope.tennisScoreBoard.matchWinner = "none"
+            if($scope.tennisScoreBoard.setNumber === 4) {
+             
+                if ($scope.tennisScoreBoard.player1.setWins > $scope.tennisScoreBoard.player2.setWins) {
+                    $scope.tennisScoreBoard.matchWinner = "player1"
+                } else if ($scope.tennisScoreBoard.player1.setWins < $scope.tennisScoreBoard.player2.setWins) {
+                    $scope.tennisScoreBoard.matchWinner = "player2"
+                } else {
+                    $scope.tennisScoreBoard.matchWinner = "none"
+                }
+                $scope.tennisScoreBoard.setNumber = 3;
+                $scope.updateTennis();
             }
-
-            $scope.updateTennis();
-
         }
 
         $scope.resetGameTennis = function () {
+            viewers = $scope.tennisScoreBoard.viewers;
             $scope.tennisScoreBoard = defaultTennisScoreBoard;
-            $scope.tennisScoreBoard.isLive = false;
+            $scope.tennisScoreBoard.viewers = viewers;
             $scope.updateTennis();
         };
 
@@ -303,22 +310,24 @@ angular.module('scoreApp')
 
         $scope.finishBadminton = function () {
             $scope.endSetBadminton();
-            $scope.badmintonScoreBoard.setNumber = 3;
-            if ($scope.badmintonScoreBoard.player1.setWins > $scope.badmintonScoreBoard.player2.setWins) {
-                $scope.badmintonScoreBoard.matchWinner = "player1"
-            } else if ($scope.badmintonScoreBoard.player1.setWins < $scope.badmintonScoreBoard.player2.setWins) {
-                $scope.badmintonScoreBoard.matchWinner = "player2"
-            } else {
-                $scope.badmintonScoreBoard.matchWinner = "none"
+            if($scope.badmintonScoreBoard.setNumber === 4) {
+                $scope.badmintonScoreBoard.setNumber = 3;
+                if ($scope.badmintonScoreBoard.player1.setWins > $scope.badmintonScoreBoard.player2.setWins) {
+                    $scope.badmintonScoreBoard.matchWinner = "player1"
+                } else if ($scope.badmintonScoreBoard.player1.setWins < $scope.badmintonScoreBoard.player2.setWins) {
+                    $scope.badmintonScoreBoard.matchWinner = "player2"
+                } else {
+                    $scope.badmintonScoreBoard.matchWinner = "none"
+                }
+
+                $scope.updateBadminton();
             }
-
-            $scope.updateBadminton();
-
         }
 
         $scope.resetGameBadminton = function () {
+            viewers = $scope.badmintonScoreBoard.viewers;
             $scope.badmintonScoreBoard = defaultBadmintonScoreBoard;
-            $scope.badmintonScoreBoard.isLive = false;
+            $scope.badmintonScoreBoard.viewers = viewers;
             $scope.updateBadminton();
         };
 
@@ -365,8 +374,9 @@ angular.module('scoreApp')
         }
 
         $scope.resetGameBasketball = function () {
+            viewers = $scope.basketballScoreBoard.viewers;
             $scope.basketballScoreBoard = defaultBasketballScoreBoard;
-            $scope.basketballScoreBoard.isLive = false;
+            $scope.basketballScoreBoard.viewers = viewers;
             $scope.updateBasketball();
         };
 
@@ -380,10 +390,10 @@ angular.module('scoreApp')
         };
 
         $scope.finishBasketball = function () {
-            if ($scope.basketballScoreBoard.team2.scores.length > $scope.basketballScoreBoard.team1.scores.length)
-                $scope.basketballScoreBoard.matchWinner = "player2";
-            else if ($scope.basketballScoreBoard.team2.scores.length < $scope.basketballScoreBoard.team1.scores.length)
-                $scope.basketballScoreBoard.matchWinner = "player1";
+            if ($scope.basketballScoreBoard.team2.scores > $scope.basketballScoreBoard.team1.scores)
+                $scope.basketballScoreBoard.matchWinner = "team2";
+            else if ($scope.basketballScoreBoard.team2.scores < $scope.basketballScoreBoard.team1.scores)
+                $scope.basketballScoreBoard.matchWinner = "team1";
             else
                 $scope.basketballScoreBoard.matchWinner = "none";
             $scope.updateBasketball();
@@ -404,14 +414,14 @@ angular.module('scoreApp')
             "isLive": false,
             "setHistory": [],
             "team1": {
-                "name": null,
-                "points": 0,
-                "setWins": 0
+              "name": null,
+              "points": 0,
+              "setWins": 0
             },
             "team2": {
-                "name": null,
-                "points": 0,
-                "setWins": 0
+              "name": null,
+              "points": 0,
+              "setWins": 0 
             },
             "matchWinner": "not declared",
             "commentary": [/*{ "time": "00", "text": "Comments" }*/]
@@ -479,25 +489,135 @@ angular.module('scoreApp')
 
         $scope.finishVolleyball = function () {
             $scope.endSetVolleyball();
-            $scope.volleyballScoreBoard.setNumber = 3;
-            if ($scope.volleyballScoreBoard.team1.setWins > $scope.volleyballScoreBoard.team2.setWins) {
-                $scope.volleyballScoreBoard.matchWinner = "team1"
-            } else if ($scope.volleyballScoreBoard.team1.setWins < $scope.volleyballScoreBoard.team2.setWins) {
-                $scope.volleyballScoreBoard.matchWinner = "team2"
-            } else {
-                $scope.volleyballScoreBoard.matchWinner = "none"
+            if($scope.volleyballScoreBoard.setNumber === 4) {
+                $scope.volleyballScoreBoard.setNumber = 3;
+                if ($scope.volleyballScoreBoard.team1.setWins > $scope.volleyballScoreBoard.team2.setWins) {
+                    $scope.volleyballScoreBoard.matchWinner = "team1"
+                } else if ($scope.volleyballScoreBoard.team1.setWins < $scope.volleyballScoreBoard.team2.setWins) {
+                    $scope.volleyballScoreBoard.matchWinner = "team2"
+                } else {
+                    $scope.volleyballScoreBoard.matchWinner = "none"
+                }
+
+                $scope.updateVolleyball();
             }
-
-            $scope.updateVolleyball();
-
         }
 
         $scope.resetGameVolleyball = function () {
+            viewers = $scope.volleyballScoreBoard.viewers;
             $scope.volleyballScoreBoard = defaultVolleyballScoreBoard;
-            $scope.volleyballScoreBoard.isLive = false;
+            $scope.volleyballScoreBoard.viewers = viewers;
             $scope.updateVolleyball();
         };
+        /////////////////////////////////////////////////
+        ////////// for cricket scoreboard /////////////
+        /////////////////////////////////////////////////
 
+        $scope.cricketScoreBoard = {
+            "viewers": 0,
+            "innings": 1,
+            "isBreak": false,
+            "isLive": false,
+            "runs": 0,
+            "wickets": 0,
+            "totalOvers": 20,
+            "currOver": 1,
+            "toWin": 1,
+            "innHistory": [],
+            "batting": null,
+            "balling": null,
+            "matchWinner" : "not declared",
+            "commentary": [/*{ "time": "00", "text": "Comments" }*/]
+        };
+
+        var defaultCricketScoreBoard = $scope.cricketScoreBoard;
+
+        $scope.updateCricket = function () {
+            socket.emit("update-cricket", $scope.cricketScoreBoard);
+        }
+
+        $scope.commentCricket = function (text) {
+            var d = new Date();
+            $scope.cricketScoreBoard.commentary.unshift({
+                "time": d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds(),
+                "text": text
+            });
+            $scope.updateCricket();
+        }
+        $scope.delCricketComment = function(index) {
+            $scope.cricketScoreBoard.commentary.splice(index, 1);
+            $scope.updateCricket();
+        };
+
+        $scope.changeCricketTotalOvers = function (i) {
+            $scope.cricketScoreBoard.totalOvers += i;
+            $scope.updateCricket();
+        };
+
+        $scope.changeCricketCurrOver = function (i) {
+            $scope.cricketScoreBoard.currOver += i;
+            $scope.updateCricket();
+        };
+
+        $scope.changeCricketRuns = function (i) {
+            $scope.cricketScoreBoard.runs += i;
+            $scope.updateCricket();
+        };
+
+        $scope.changeCricketWickets = function (i) {
+            $scope.cricketScoreBoard.wickets += i;
+            $scope.updateCricket();
+        };
+
+
+        $scope.endInnCricket = function () {
+            if ($scope.cricketScoreBoard.currOver === $scope.cricketScoreBoard.totalOvers || $scope.cricketScoreBoard.wickets === 10 || ($scope.cricketScoreBoard.innings === 2 && $scope.cricketScoreBoard.runs > $scope.cricketScoreBoard.toWin)) {
+                $scope.cricketScoreBoard.innHistory.push({
+                    "batting": $scope.cricketScoreBoard.batting,
+                    "balling": $scope.cricketScoreBoard.balling,
+                    "runs": $scope.cricketScoreBoard.runs,
+                    "wickets": $scope.cricketScoreBoard.wickets,
+                    "totalOvers": $scope.cricketScoreBoard.totalOvers,
+                    "currOver": $scope.cricketScoreBoard.currOver
+                });
+                if($scope.cricketScoreBoard.innings === 1) {
+                    var temp = $scope.cricketScoreBoard.batting;
+                    $scope.cricketScoreBoard.batting = $scope.cricketScoreBoard.balling;
+                    $scope.cricketScoreBoard.balling = temp;
+                    $scope.cricketScoreBoard.toWin = $scope.cricketScoreBoard.runs + 1;
+                    $scope.cricketScoreBoard.currOver = 1;
+                    $scope.cricketScoreBoard.wickets = 0;
+                    $scope.cricketScoreBoard.runs = 0;
+                }
+                $scope.cricketScoreBoard.innings++;
+                $scope.updateCricket();
+            } else {
+                alert("Either Overs Not Complete or Some Wickets Left!");
+            }
+        };
+
+        $scope.finishCricket = function () {
+            $scope.endInnCricket();
+            if($scope.cricketScoreBoard.innings === 3) {
+                $scope.cricketScoreBoard.innings = 2;
+                if ($scope.cricketScoreBoard.innHistory[1].runs > $scope.cricketScoreBoard.innHistory[0].runs) {
+                    $scope.cricketScoreBoard.matchWinner = "batting"
+                } else if ($scope.cricketScoreBoard.innHistory[1].runs < $scope.cricketScoreBoard.innHistory[0].runs) {
+                    $scope.cricketScoreBoard.matchWinner = "balling"
+                } else {
+                    $scope.cricketScoreBoard.matchWinner = "none"
+                }
+
+                $scope.updateCricket();
+            }
+        }
+
+        $scope.resetGameCricket = function () {
+            viewers = $scope.cricketScoreBoard.viewers;
+            $scope.cricketScoreBoard = defaultCricketScoreBoard;
+            $scope.cricketScoreBoard.viewers = viewers;
+            $scope.updateCricket();
+        };
         ////////////////////////////////////////////////
         ///////////// UPDATION EVENTS //////////////////
         ////////////////////////////////////////////////
@@ -527,6 +647,20 @@ angular.module('scoreApp')
             console.log("an update");
             $scope.$apply(function () {
                 $scope.basketballScoreBoard = data;
+            });
+        });
+
+        socket.on("volleyball-updated", function (data) {
+            console.log("an update");
+            $scope.$apply(function () {
+                $scope.volleyballScoreBoard = data;
+            });
+        });
+
+        socket.on("cricket-updated", function (data) {
+            console.log("an update");
+            $scope.$apply(function () {
+                $scope.cricketScoreBoard = data;
             });
         });
 

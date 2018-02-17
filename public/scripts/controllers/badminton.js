@@ -19,5 +19,5 @@ angular.module('scoreApp')
             $scope.$apply(function () {
                 $scope.badmintonScoreBoard = data;
             });
-        })
+        });
     });

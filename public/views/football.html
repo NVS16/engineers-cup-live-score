@@ -1,29 +1,29 @@
-<link href="../styles/football.css" rel="stylesheet" type="text/css">
+<link href="../styles/container.css" rel="stylesheet" type="text/css">
 
 <div ng-if="footballScoreBoard.isLive">
 
     <div class="well" ng-if="footballScoreBoard.matchWinner !== 'not declared'">
-        <div class="col-sm-6">
+            <h4><b>MATCH RESULT</b></h4>
+        <div class="col-sm-6 col-xs-6 col-lg-6 col-md-6">
             <h1>{{footballScoreBoard.team1.scores.length}}</h1>
             <p>{{footballScoreBoard.team1.name}}</p>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-6 col-xs-6 col-lg-6 col-md-6">
             <h1>{{footballScoreBoard.team2.scores.length}}</h1>
             <p>{{footballScoreBoard.team2.name}}</p>
         </div>
         <div ng-switch="footballScoreBoard.matchWinner">
-            <div ng-switch-when="player1">
-                <p>{{footballScoreBoard.team1.name}} has won the match</p>
+            <div ng-switch-when="team1">
+                <h5 class="text-success"><b>{{footballScoreBoard.team1.name}}</b> Has Won the Match!</h5>
             </div>
-            <div ng-switch-when="player2">
-                <p>{{footballScoreBoard.team2.name}} has won the match</p>
+            <div ng-switch-when="team2">
+                <h5 class="text-success"><b>{{footballScoreBoard.team2.name}}</b> Has Won the Match!</h5>
             </div>
             <div ng-switch-when="none">
-                <p>Match was a draw</p>
+                <h5 class="text-info">Match Was a <b>Draw</b></h5>
             </div>
         </div>
     </div>
-
     <div class="well">
         <div class="row">
             <div ng-if="footballScoreBoard.isHalfTime" class="half-time">HALF - TIME</div>
@@ -89,4 +89,4 @@
     </div>
 </div>
 
-<div class="not-live" ng-if="!footballScoreBoard.isLive">No match is being played</div>
+<div class="not-live" ng-if="!footballScoreBoard.isLive">No Match is Being Played &#9785;</div>

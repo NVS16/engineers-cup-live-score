@@ -1,37 +1,55 @@
+<link href="../styles/container.css" rel="stylesheet" type="text/css">
+
 <div ng-if="badmintonScoreBoard.isLive">
-    <p>Current Set - {{ badmintonScoreBoard.setNumber }}</p>
     <div class="well" ng-if="badmintonScoreBoard.matchWinner !== 'not declared'">
-        <div class="col-sm-6">
-            <h1>{{badmintonScoreBoard.player1.setWins}}</h1>
+        <h4><b>MATCH RESULT</b></h4>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <h2>{{badmintonScoreBoard.player1.setWins}}</h2>
             <p>{{badmintonScoreBoard.player1.name}}</p>
             <p>{{badmintonScoreBoard.player1.college}}</p>
-
         </div>
-        <div class="col-sm-6">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
             <h1>{{badmintonScoreBoard.player2.setWins}}</h1>
             <p>{{badmintonScoreBoard.player2.name}}</p>
             <p>{{badmintonScoreBoard.player2.college}}</p>
         </div>
         <div ng-switch="badmintonScoreBoard.matchWinner">
             <div ng-switch-when="player1">
-                <p>{{badmintonScoreBoard.player1.name}} has won the match</p>
+                <h5 class="text-success"><b>{{badmintonScoreBoard.player1.name}}</b> Has <b>Won</b> the Match!</h5>
             </div>
             <div ng-switch-when="player2">
-                <p>{{badmintonScoreBoard.player2.name}} has won the match</p>
+                <h5 class="text-success"><b>{{badmintonScoreBoard.player2.name}}</b> Has <b>Won</b> the Match!</h5>
             </div>
             <div ng-switch-when="none">
-                <p>Match was a draw</p>
+                <h5 class="text-info">Match Was a <b>Draw</b></h5>
             </div>
         </div>
     </div>
     <div class="row">
-        <div class="well" ng-if="badmintonScoreBoard.setHistory.length > 0">
-            <table class="table table-hover">
+        <div class="well">
+            <h1>Set {{ badmintonScoreBoard.setNumber }}</h1>
+            <div class="half-time" ng-if="badmintonScoreBoard.isBreak">Break time!</div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>{{ badmintonScoreBoard.player1.points }}</h2>
+                    <h4>{{ badmintonScoreBoard.player1.name }}</h4>
+                    <h4>{{ badmintonScoreBoard.player1.college }}</h4>
+                    <h4><b>{{ badmintonScoreBoard.player1.setWins }}</b> Set wins</h4>
+        
+                </div>
+                <div class="col-sm-6">
+                    <h2>{{ badmintonScoreBoard.player2.points }}</h2>
+                    <h4>{{ badmintonScoreBoard.player2.name }}</h4>
+                    <h4>{{ badmintonScoreBoard.player2.college }}</h4>
+                    <h4><b>{{ badmintonScoreBoard.player2.setWins }}</b> Set wins</h4>
+                </div>
+            </div>
+            <table ng-if="badmintonScoreBoard.setHistory.length > 0" class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th>Set Number</th>
-                        <th>Wins</th>
-                        <th>Losses</th>
+                        <th class="text-center">SET</th>
+                        <th class="text-center">WINNER</th>
+                        <th class="text-center">LOSER</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,31 +57,17 @@
                         <td>{{set.setnumber}}</td>
                         <td>
 
-                            {{set.winner}} {{set.winpoints}}
+                            {{set.winner}} ({{set.winpoints}})
 
                         </td>
                         <td>
 
-                            {{set.loser}} {{set.losepoints}}
+                            {{set.loser}} ({{set.losepoints}})
 
                         </td>
                     </tr>
                 </tbody>
             </table>
-        </div>
-
-        <div class="col-sm-6">
-            <p>Name - {{ badmintonScoreBoard.player1.name }}</p>
-            <p>College - {{ badmintonScoreBoard.player1.college }}</p>
-            <p>Points - {{ badmintonScoreBoard.player1.points }}</p>
-            <p>Set wins - {{ badmintonScoreBoard.player1.setWins }}</p>
-
-        </div>
-        <div class="col-sm-6">
-            <p>Name - {{ badmintonScoreBoard.player2.name }}</p>
-            <p>College - {{ badmintonScoreBoard.player2.college }}</p>
-            <p>Points - {{ badmintonScoreBoard.player2.points }}</p>
-            <p>Set wins - {{ badmintonScoreBoard.player2.setWins }}</p>
         </div>
     </div>
 
@@ -73,7 +77,6 @@
             <span>{{c.text}}</span>
         </div>
     </div>
-    <div class="half-time" ng-if="badmintonScoreBoard.isBreak">Half time!</div>
 </div>
 
-<div class="not-live" ng-if="!badmintonScoreBoard.isLive">No match is being played</div>
+<div class="not-live" ng-if="!badmintonScoreBoard.isLive">No Match is Being Played &#9785;</div>

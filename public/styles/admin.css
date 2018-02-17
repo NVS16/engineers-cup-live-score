@@ -14,7 +14,7 @@
 
 
 form {
-    background-color: #ECECEA;
+    background-color: #fff;
     border: 1px solid #ccc;
     padding: 20px !important;
     border-radius: 2px;
@@ -66,3 +66,8 @@ h2 {
 /*
     form style end
 */
+
+
+table {
+    overflow: scroll !important;
+}

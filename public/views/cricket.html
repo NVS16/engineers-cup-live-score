@@ -1,0 +1,83 @@
+<link href="../styles/container.css" rel="stylesheet" type="text/css">
+
+<div ng-if="cricketScoreBoard.isLive">
+    <div class="well" ng-if="cricketScoreBoard.matchWinner !== 'not declared'">
+        <!--<div class="col-sm-6">
+            <h1>{{cricketScoreBoard.innHistory[0].runs}} / {{cricketScoreBoard.innHistory[0].wickets }}</h1>
+            <p>{{cricketScoreBoard.innHistory[1].balling}}</p>
+        </div>
+        <div class="col-sm-6">
+            <h1>{{cricketScoreBoard.innHistory[1].runs}} / {{ cricketScoreBoard.innHistory[1].wickets }}</h1>
+            <p>{{cricketScoreBoard.innHistory[1].batting}}</p>
+        </div>-->
+        <div ng-switch="cricketScoreBoard.matchWinner">
+            <div ng-switch-when="batting">
+                <h5 class="text-success"><b>{{cricketScoreBoard.innHistory[1].batting}}</b> has won the match by <b>{{ 10 - cricketScoreBoard.innHistory[1].wickets }}</b> wickets!</h5>
+            </div>
+            <div ng-switch-when="balling">
+                <h5 class="text-success"><b>{{cricketScoreBoard.innHistory[1].balling}}</b> has won the match by <b>{{ cricketScoreBoard.innHistory[0].runs - cricketScoreBoard.innHistory[1].runs }}</b> runs!</h5>
+            </div>
+            <div ng-switch-when="none">
+                <h5 class="text-info">Match Was a Draw!</h5>
+            </div>
+        </div>
+    </div>
+        <div class="well">
+            <table ng-if="cricketScoreBoard.innHistory.length > 0" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="text-center">INN</th>
+                        <th class="text-center">BAT</th>
+                        <th class="text-center">RUNS</th>
+                        <th class="text-center">WICKETS</th>
+                        <th class="text-center">OVERS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="inn in cricketScoreBoard.innHistory track by $index">
+                        <td>{{ $index + 1}}</td>
+                        <td>
+                            {{inn.batting}}
+                        </td>
+                        <td>
+                            {{inn.runs}}
+                        </td>
+                        <td>
+                            {{inn.wickets}}
+                        </td>
+                        <td>
+                            {{inn.currOver}} / {{ inn.totalOvers }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <h3><b>INNINGS - {{ cricketScoreBoard.innings }}</b></h3>
+                <div ng-if="cricketScoreBoard.innings === 2">
+                    <h5><b>TARGET :</b> {{ cricketScoreBoard.toWin }}</h3>
+                    <h5><b>REQ. RUN RATE :</b> {{ ((cricketScoreBoard.toWin - cricketScoreBoard.runs) / (cricketScoreBoard.totalOvers - cricketScoreBoard.currOver)) | number : 2 }}</h3>
+                </div>
+                <div class="col-sm-4">
+                    <h4 class="team-name">{{ cricketScoreBoard.batting }} (BAT)</h4>
+                </div>
+                <div class="col-sm-4 cricketscorecard">
+                    <h2><b>{{ cricketScoreBoard.runs }} / {{ cricketScoreBoard.wickets }}</b></h2>
+                    <h5><b>OVER :</b> {{ cricketScoreBoard.currOver }} / {{ cricketScoreBoard.totalOvers }}</h5>
+                    <h5><b>CURR. RUN RATE :</b> {{ (cricketScoreBoard.runs / cricketScoreBoard.currOver) | number: 2 }}</h5>
+                </div>
+                <div class="col-sm-4">
+                    <h4 class="team-name">{{ cricketScoreBoard.balling }} (BALL)</h4>
+                </div>
+            </div>
+        </div>
+    
+    <div class="well" ng-if = "cricketScoreBoard.commentary.length > 0">
+        <div ng-repeat="c in cricketScoreBoard.commentary track by $index">
+            <b>{{c.time}}</b>
+            <span>{{c.text}}</span>
+        </div>
+    </div>
+    <div class="half-time" ng-if="cricketScoreBoard.isBreak">Half time!</div>
+</div>
+
+<div class="not-live" ng-if="!cricketScoreBoard.isLive">No Match is Being Played &#9785;</div>

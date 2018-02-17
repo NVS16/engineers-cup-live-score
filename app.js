@@ -53,11 +53,13 @@ var badminton = {
   "isLive": false,
   "setHistory": [],
   "player1": {
+    "college": null,
     "name": null,
     "points": 0,
     "setWins": 0
   },
   "player2": {
+    "college": null,
     "name": null,
     "points": 0,
     "setWins": 0
@@ -97,7 +99,7 @@ var volleyBall = {
   "team2": {
     "name": null,
     "points": 0,
-    "setWins": 0
+    "setWins": 0 
   },
   "matchWinner" : "not declared",
   "commentary": [/*{ "time": "00", "text": "Comments" }*/]
@@ -105,19 +107,19 @@ var volleyBall = {
 
 var cricket = {
   "viewers": 0,
-  "innings": 0,
+  "innings": 1,
   "isBreak": false,
   "isLive": false,
-  "team1": {
-    "name": null,
-    "score": 0,
-    "isBatting": false
-  },
-  "team2": {
-    "name": null,
-    "isBatting": false
-  },
-  "commentary": [{ "time": "00", "text": "Comments" }]
+  "runs": 0,
+  "wickets": 0,
+  "totalOvers": 20,
+  "currOver": 1,
+  "toWin": 1,
+  "innHistory": [],
+  "batting": null,
+  "balling": null,
+  "matchWinner" : "not declared",
+  "commentary": [/*{ "time": "00", "text": "Comments" }*/]
 };
 
 io.on("connection", function (socket) {
@@ -236,7 +238,9 @@ io.on("connection", function (socket) {
     socket._rooms = [];
     socket.join("volleyball"); // the badminton room
     socket.roomName = "volleyball";
+    console.log("Current Volley lenght", io.sockets.adapter.rooms["volleyball"].length);
     if(io.sockets.adapter.rooms['volleyball']) volleyBall.viewers = io.sockets.adapter.rooms["volleyball"].length;
+    console.log("Actual Scoreboard : ", volleyBall.viewers);
     socket.emit("joined-volleyball", volleyBall);
     io.in("volleyball").emit("volleyball-updated", volleyBall);
   });
@@ -246,7 +250,32 @@ io.on("connection", function (socket) {
     console.log(data);
     io.in("volleyball").emit("volleyball-updated", volleyBall);
   });
+
+  ///////////////////////////////////////////////////////
+  ///////////for cricket/////////////////////////////
+  ///////////////////////////////////////////////////////
+
+  socket.on("join-cricket", function () {
+    if(socket.roomName) {
+      socket.leave(socket.roomName);
+      updateOnGroupLeave(socket.roomName);
+    }
+    socket._rooms = [];
+    socket.join("cricket"); // the badminton room
+    socket.roomName = "cricket";
+    if(io.sockets.adapter.rooms['cricket']) cricket.viewers = io.sockets.adapter.rooms["cricket"].length;
+    socket.emit("joined-cricket", cricket);
+    io.in("cricket").emit("cricket-updated", cricket);
+  });
+
+  socket.on("update-cricket", function (data) {
+    cricket = data;
+    console.log(data);
+    io.in("cricket").emit("cricket-updated", cricket);
+  });
 });
+
+
 
 
 
@@ -291,7 +320,11 @@ function updateOnGroupLeave(roomname) {
         volleyBall.viewers = io.sockets.adapter.rooms["volleyball"].length;
         io.in("volleyball").emit("volleyball-updated", volleyBall);
       }
-
+       break;
+       case "cricket": if (io.sockets.adapter.rooms["cricket"]) {
+        volleyBall.viewers = io.sockets.adapter.rooms["cricket"].length;
+        io.in("cricket").emit("cricket-updated", cricket);
+      }
     }
   }
 }

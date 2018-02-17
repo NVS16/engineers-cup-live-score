@@ -1,0 +1,50 @@
+* {
+    text-align: center;
+    font-family: 'Comfortaa', cursive;
+}
+
+.well {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px !important;
+    border-radius: 7px;
+    margin: 2% 5% 0px 5% !important;
+    box-shadow: 5px 5px 10px #ddd;
+    font-family: 'Comfortaa', cursive;
+}
+
+
+.half-time {
+    color: red;
+    text-shadow: 1px 1px 1px #444;
+    font-weight: bolder;
+}
+
+.team-name {
+    font-family: 'Righteous', cursive;
+    text-shadow: 1px 1px 3px #444;
+    text-transform: capitalize;
+    font-family: 'Vast Shadow', cursive;  
+    font-size: 1.5em !important;
+}
+
+.not-live {
+    margin: 20% auto !important;
+    font-size: 20px;
+    color: crimson;
+    border: 1px solid rgb(253, 82, 82);
+    padding: 10px;
+    text-shadow: 1px 1px 2px #eee;
+    border-radius: 10px;
+}
+
+.cricketscorecard {
+    border: 3px solid #888 !important;
+}
+
+@media screen and (max-width: 700px) {
+    table {
+        font-size: 0.7em;
+    }
+    
+}

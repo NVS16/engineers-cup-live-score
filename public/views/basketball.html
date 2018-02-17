@@ -1,46 +1,48 @@
+<link href="../styles/container.css" rel="stylesheet" type="text/css">
+
 <div ng-if="basketballScoreBoard.isLive">
-    <div class="row">
-
-        <p>Current Quarter - {{ basketballScoreBoard.quarterNumber }}</p>
-        <div class="well" ng-if="basketballScoreBoard.matchWinner !== 'not declared'">
-            <div class="col-sm-6">
-                <h1>{{basketballScoreBoard.team1.scores}}</h1>
-                <p>{{basketballScoreBoard.team1.name}}</p>
-            </div>
-            <div class="col-sm-6">
-                <h1>{{basketballScoreBoard.team2.scores}}</h1>
-                <p>{{basketballScoreBoard.team2.name}}</p>
-            </div>
-            <div ng-switch="basketballScoreBoard.matchWinner">
-                <div ng-switch-when="player1">
-                    <p>{{basketballScoreBoard.team1.name}} has won the match</p>
-                </div>
-                <div ng-switch-when="player2">
-                    <p>{{basketballScoreBoard.team2.name}} has won the match</p>
-                </div>
-                <div ng-switch-when="none">
-                    <p>Match was a draw</p>
-                </div>
-            </div>
+    <div class="well" ng-if="basketballScoreBoard.matchWinner !== 'not declared'">
+        <h4><b>MATCH RESULT</b></h4>
+        <div class="col-sm-6 col-xs-6 col-lg-6 col-md-6">
+            <h1>{{basketballScoreBoard.team1.scores}}</h1>
+            <p>{{basketballScoreBoard.team1.name}}</p>
         </div>
-        <div class="col-sm-6">
-            <p>Name - {{ basketballScoreBoard.team1.name }}</p>
-            <p>Points - {{ basketballScoreBoard.team1.scores }}</p>
-
+        <div class="col-sm-6 col-xs-6 col-lg-6 col-md-6">
+            <h1>{{basketballScoreBoard.team2.scores}}</h1>
+            <p>{{basketballScoreBoard.team2.name}}</p>
         </div>
-        <div class="col-sm-6">
-            <p>Name - {{ basketballScoreBoard.team2.name }}</p>
-            <p>Points - {{ basketballScoreBoard.team2.scores }}</p>
+        <div ng-switch="basketballScoreBoard.matchWinner">
+            <div ng-switch-when="team1">
+                <h5 class="text-success"><b>{{basketballScoreBoard.team1.name}}</b> Has Won the Match!</h5>
+            </div>
+            <div ng-switch-when="team2">
+                <h5 class="text-success"><b>{{basketballScoreBoard.team2.name}}</b> Has Won the Match!</h5>
+            </div>
+            <div ng-switch-when="none">
+                <h5 class="text-info">Match Was a <b>Draw</b></h5>
+            </div>
         </div>
     </div>
-
+    <div class="well">
+        <h1>Quarter {{ basketballScoreBoard.quarterNumber }}</h1>
+        <div class="half-time" ng-if="basketballScoreBoard.isBreak">Break Time!</div>
+        <div class="row">
+            <div class="col-sm-6 col-xs-12 col-lg-6 col-md-6">
+                <h2>{{ basketballScoreBoard.team1.scores }}</h2>
+                <p class="team-name">{{ basketballScoreBoard.team1.name }}</p>
+            </div>
+            <div class="col-sm-6 col-xs-12 col-lg-6 col-md-6">
+                <h2>{{ basketballScoreBoard.team2.scores }}</h2>
+                <p class="team-name">{{ basketballScoreBoard.team2.name }}</p>
+            </div>
+        </div>
+    </div>
     <div class="well" ng-if="basketballScoreBoard.commentary.length > 0">
         <div ng-repeat="c in basketballScoreBoard.commentary track by $index">
             <b>{{c.time}}</b>
             <span>{{c.text}}</span>
         </div>
     </div>
-    <div class="half-time" ng-if="basketballScoreBoard.isBreak">Half time!</div>
 </div>
 
-<div class="not-live" ng-if="!basketballScoreBoard.isLive">No match is being played</div>
+<div class="not-live" ng-if="!basketballScoreBoard.isLive">No Match is Being Played &#9785;</div>
