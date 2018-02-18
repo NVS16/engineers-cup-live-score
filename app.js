@@ -282,7 +282,7 @@ io.on("connection", function (socket) {
 
 app.use(express.static(__dirname + "/public"));
 
-http.listen(3000, function () {
+http.listen(3000 || process.env.PORT, function () {
   console.log("listening on : 3000");
 });
 
