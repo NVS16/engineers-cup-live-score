@@ -571,7 +571,7 @@ angular.module('scoreApp')
 
 
         $scope.endInnCricket = function () {
-            if ($scope.cricketScoreBoard.currOver === $scope.cricketScoreBoard.totalOvers || $scope.cricketScoreBoard.wickets === 10 || ($scope.cricketScoreBoard.innings === 2 && $scope.cricketScoreBoard.runs > $scope.cricketScoreBoard.toWin)) {
+            if ($scope.cricketScoreBoard.currOver === $scope.cricketScoreBoard.totalOvers || $scope.cricketScoreBoard.wickets === 10 || ($scope.cricketScoreBoard.innings === 2 && $scope.cricketScoreBoard.runs >= $scope.cricketScoreBoard.toWin)) {
                 $scope.cricketScoreBoard.innHistory.push({
                     "batting": $scope.cricketScoreBoard.batting,
                     "balling": $scope.cricketScoreBoard.balling,
