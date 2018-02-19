@@ -29,10 +29,10 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
-      .when('/dashboard', {
-        templateUrl: 'views/dashboard.html',
-        controller: 'DashCtrl',
-        controllerAs: 'dash'
+      .when('/fixtures', {
+        templateUrl: 'views/fixtures.html',
+        controller: 'FixtureCtrl',
+        controllerAs: 'fix'
       })
       .when('/football', {
         templateUrl: 'views/football.html',

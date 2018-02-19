@@ -8,7 +8,7 @@
  * Controller of the scoreApp
  */
 angular.module('scoreApp')
-  .controller('DashCtrl', function () {
+  .controller('FixtureCtrl', function () {
     
 
   });

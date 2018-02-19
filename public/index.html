@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css?family=Comfortaa|Righteous|Miriam+Libre|Vast+Shadow" rel="stylesheet">
   <!-- endbuild -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+  <link href="./styles/navbar.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -27,7 +27,17 @@
     <![endif]-->
 
   <!-- Add your site or application content here -->
-
+  <div class="topnav" id="myTopnav">
+    <a href = "#!">Engineer's Cup</a>
+    <a href="#!badminton">Badminton</a>
+    <a href="#!basketball">Basketball</a>
+    <a href="#!cricket">Cricket</a>
+    <a href="#!football">Football</a>
+    <a href="#!tennis">Table Tennis</a>
+    <a href="#!volleyball">Volley Ball</a>
+    <a href="#!fixtures" style="float:right">Fixtures</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
+  </div>
   <section class="container ng-cloak">
     <div ng-view=""></div>
   </section>
@@ -52,7 +62,7 @@
   <script src="scripts/controllers/admin.js"></script>
   <script src="scripts/controllers/tennis.js"></script>
   <script src="scripts/controllers/badminton.js"></script>
-  <script src="scripts/controllers/dashboard.js"></script>
+  <script src="scripts/controllers/fixtures.js"></script>
   <script src="scripts/controllers/basketball.js"></script>
   <script src="scripts/controllers/volleyball.js"></script>
   <script src="scripts/controllers/cricket.js"></script>
