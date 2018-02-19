@@ -281,10 +281,10 @@ io.on("connection", function (socket) {
 
 
 app.use(express.static(__dirname + "/public"));
-var port = (process.env.PORT || '3000');
+var port = (process.env.PORT || '8080');
 app.set('port', port);
 http.listen(port, function () {
-  console.log("listening on : 3000");
+  console.log("listening on : 8080");
 });
 
 
