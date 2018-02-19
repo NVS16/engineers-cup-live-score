@@ -169,6 +169,20 @@ angular.module('scoreApp')
             $scope.updateTennis();
         };
 
+        var checkWinTennis = function() {
+            if($scope.tennisScoreBoard.setNumber === 3 || $scope.tennisScoreBoard.setNumber === 4) {
+
+                if ($scope.tennisScoreBoard.player1.setWins > $scope.tennisScoreBoard.player2.setWins) {
+                    $scope.tennisScoreBoard.matchWinner = "player1";
+                    $scope.tennisScoreBoard.setNumber--;
+                } else if ($scope.tennisScoreBoard.player1.setWins < $scope.tennisScoreBoard.player2.setWins) {
+                    $scope.tennisScoreBoard.matchWinner = "player2";
+                    $scope.tennisScoreBoard.setNumber--;
+                }
+                $scope.updateTennis();
+            }
+        };
+
         $scope.endSetTennis = function () {
             if ($scope.tennisScoreBoard.player1.points > $scope.tennisScoreBoard.player2.points) {
                 $scope.tennisScoreBoard.setHistory.push({
@@ -182,38 +196,24 @@ angular.module('scoreApp')
                 $scope.tennisScoreBoard.player1.setWins += 1;
                 $scope.tennisScoreBoard.setNumber += 1;
                 $scope.updateTennis();
+                checkWinTennis();
             } else if ($scope.tennisScoreBoard.player1.points < $scope.tennisScoreBoard.player2.points) {
                 $scope.tennisScoreBoard.setHistory.push({
                     "setnumber": $scope.tennisScoreBoard.setNumber,
                     "winner": $scope.tennisScoreBoard.player2.name,
                     "loser": $scope.tennisScoreBoard.player1.name,
                     "winpoints": $scope.tennisScoreBoard.player2.points,
-                    "loosepoints": $scope.tennisScoreBoard.player1.points
+                    "losepoints": $scope.tennisScoreBoard.player1.points
                 });
                 $scope.tennisScoreBoard.player1.points = $scope.tennisScoreBoard.player2.points = 0;
                 $scope.tennisScoreBoard.player2.setWins += 1;
                 $scope.tennisScoreBoard.setNumber += 1;
                 $scope.updateTennis();
+                checkWinTennis();
             } else {
                 alert("Both Scores Equal! Can't End Set Yet!");
             }
         };
-
-        $scope.finishTennis = function () {
-            $scope.endSetTennis();
-            if($scope.tennisScoreBoard.setNumber === 4) {
-             
-                if ($scope.tennisScoreBoard.player1.setWins > $scope.tennisScoreBoard.player2.setWins) {
-                    $scope.tennisScoreBoard.matchWinner = "player1"
-                } else if ($scope.tennisScoreBoard.player1.setWins < $scope.tennisScoreBoard.player2.setWins) {
-                    $scope.tennisScoreBoard.matchWinner = "player2"
-                } else {
-                    $scope.tennisScoreBoard.matchWinner = "none"
-                }
-                $scope.tennisScoreBoard.setNumber = 3;
-                $scope.updateTennis();
-            }
-        }
 
         $scope.resetGameTennis = function () {
             viewers = $scope.tennisScoreBoard.viewers;
@@ -278,6 +278,20 @@ angular.module('scoreApp')
             $scope.updateBadminton();
         };
 
+        var checkWinBadminton = function() {
+            if($scope.badmintonScoreBoard.setNumber === 3 || $scope.badmintonScoreBoard.setNumber === 4) {
+
+                if ($scope.badmintonScoreBoard.player1.setWins > $scope.badmintonScoreBoard.player2.setWins) {
+                    $scope.badmintonScoreBoard.matchWinner = "player1";
+                    $scope.badmintonScoreBoard.setNumber--;
+                } else if ($scope.badmintonScoreBoard.player1.setWins < $scope.badmintonScoreBoard.player2.setWins) {
+                    $scope.badmintonScoreBoard.matchWinner = "player2";
+                    $scope.badmintonScoreBoard.setNumber--;
+                }
+                $scope.updateBadminton();
+            }
+        };
+
         $scope.endSetBadminton = function () {
             if ($scope.badmintonScoreBoard.player1.points > $scope.badmintonScoreBoard.player2.points) {
                 $scope.badmintonScoreBoard.setHistory.push({
@@ -291,6 +305,7 @@ angular.module('scoreApp')
                 $scope.badmintonScoreBoard.player1.setWins++;
                 $scope.badmintonScoreBoard.setNumber += 1;
                 $scope.updateBadminton();
+                checkWinBadminton();
             } else if ($scope.badmintonScoreBoard.player1.points < $scope.badmintonScoreBoard.player2.points) {
                 $scope.badmintonScoreBoard.setHistory.push({
                     "setnumber": $scope.badmintonScoreBoard.setNumber,
@@ -303,6 +318,7 @@ angular.module('scoreApp')
                 $scope.badmintonScoreBoard.player2.setWins++;
                 $scope.badmintonScoreBoard.setNumber += 1;
                 $scope.updateBadminton();
+                checkWinBadminton();
             } else {
                 alert("Both Scores Equal! Can't End Set Yet!");
             }
@@ -457,6 +473,20 @@ angular.module('scoreApp')
         };
 
 
+        var checkWinVolleyball = function() {
+            if($scope.volleyballScoreBoard.setNumber === 3 || $scope.volleyballScoreBoard.setNumber === 4) {
+
+                if ($scope.volleyballScoreBoard.team1.setWins > $scope.volleyballScoreBoard.team2.setWins) {
+                    $scope.volleyballScoreBoard.matchWinner = "team1";
+                    $scope.volleyballScoreBoard.setNumber--;
+                } else if ($scope.volleyballScoreBoard.team1.setWins < $scope.volleyballScoreBoard.team2.setWins) {
+                    $scope.volleyballScoreBoard.matchWinner = "team2";
+                    $scope.volleyballScoreBoard.setNumber--;
+                }
+                $scope.updateVolleyball();
+            }
+        };
+
         $scope.endSetVolleyball = function () {
             if ($scope.volleyballScoreBoard.team1.points > $scope.volleyballScoreBoard.team2.points) {
                 $scope.volleyballScoreBoard.setHistory.push({
@@ -470,6 +500,7 @@ angular.module('scoreApp')
                 $scope.volleyballScoreBoard.team1.setWins++;
                 $scope.volleyballScoreBoard.setNumber += 1;
                 $scope.updateVolleyball();
+                checkWinVolleyball();
             } else if ($scope.volleyballScoreBoard.team1.points < $scope.volleyballScoreBoard.team2.points) {
                 $scope.volleyballScoreBoard.setHistory.push({
                     "setnumber": $scope.volleyballScoreBoard.setNumber,
@@ -482,6 +513,7 @@ angular.module('scoreApp')
                 $scope.volleyballScoreBoard.team2.setWins++;
                 $scope.volleyballScoreBoard.setNumber += 1;
                 $scope.updateVolleyball();
+                checkWinVolleyball();
             } else {
                 alert("Both Scores Equal! Can't End Set Yet!");
             }

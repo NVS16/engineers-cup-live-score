@@ -281,8 +281,7 @@
             </div>
             <div class="text-right">
                 <button ng-disabled="tennisScoreBoard.matchWinner !== 'not declared'" type="submit" class="btn btn-primary">UPDATE</button>
-                <button ng-click="endSetTennis()" class="btn btn-warning" ng-if="tennisScoreBoard.setNumber<3">FINISH SET</button>
-                <button ng-disabled="tennisScoreBoard.matchWinner !== 'not declared'" class="btn btn-warning" ng-click="finishTennis()" ng-if="tennisScoreBoard.setNumber==3">FINISH GAME</button>
+                <button ng-disabled="tennisScoreBoard.matchWinner !== 'not declared'" ng-click="endSetTennis()" class="btn btn-warning">FINISH SET</button>
                 <button ng-click="resetGameTennis()" class="btn btn-danger">RESET</button>
             </div>
         </form>
@@ -434,8 +433,7 @@
             </div>
             <div class="text-right">
                 <button ng-disabled="badmintonScoreBoard.matchWinner !== 'not declared'" type="submit" class="btn btn-primary">UPDATE</button>
-                <button ng-click="endSetBadminton()" class="btn btn-warning" ng-if="badmintonScoreBoard.setNumber<3">FINISH SET</button>
-                <button ng-disabled="badmintonScoreBoard.matchWinner !== 'not declared'" class="btn btn-warning" ng-click="finishBadminton()" ng-if="badmintonScoreBoard.setNumber==3">FINISH GAME</button>
+                <button ng-disabled="badmintonScoreBoard.matchWinner !== 'not declared'" ng-click="endSetBadminton()" class="btn btn-warning">FINISH SET</button>
                 <button ng-click="resetGameBadminton()" class="btn btn-danger">RESET</button>
             </div>
         </form>
@@ -883,8 +881,7 @@
             </div>
             <div class="text-right">
                 <button ng-disabled="volleyballScoreBoard.matchWinner !== 'not declared'" type="submit" class="btn btn-primary">UPDATE</button>
-                <button ng-click="endSetVolleyball()" class="btn btn-warning" ng-if="volleyballScoreBoard.setNumber<3">FINISH SET</button>
-                <button ng-disabled="volleyballScoreBoard.matchWinner !== 'not declared'" class="btn btn-warning" ng-click="finishVolleyball()" ng-if="volleyballScoreBoard.setNumber==3">FINISH GAME</button>
+                <button ng-disabled="volleyballScoreBoard.matchWinner !== 'not declared'" ng-click="endSetVolleyball()" class="btn btn-warning">FINISH SET</button>
                 <button ng-click="resetGameVolleyball()" class="btn btn-danger">RESET</button>
             </div>
         </form>
