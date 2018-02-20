@@ -14,7 +14,7 @@ angular.module('scoreApp')
     
     $scope.password = "";
     $scope.login = function(){
-      if($scope.password === "admin") {
+      if($scope.password === "CETwillWIN") {
         loginservice.setAdmin();
         $location.path('/admin');
       } else {

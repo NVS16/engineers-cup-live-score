@@ -64,7 +64,7 @@ angular
         controller: 'BasketballCtrl',
         controllerAs: 'basketball'
       })
-      .when('/cricket', {
+      .when('/batball', {
         templateUrl: 'views/cricket.html',
         controller: 'CricketCtrl',
         controllerAs: 'cricket'
