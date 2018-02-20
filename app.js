@@ -10,9 +10,9 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
 
 
-var server = app.listen(process.env.PORT || '8080');
+var server = app.listen(process.env.PORT || '8080',() => {console.log("App Listening for Connections..")});
 
-var io = require('socket.io').listen(server);
+var io = require('socket.io')(server);
 
 var football_score = {
   "viewers": 0,
