@@ -1,23 +1,19 @@
 .comment-section{
-    width : 600px;
+    width : 100%;
     text-align: left ;
-    height : 500px ;
-    overflow-y: auto;
+    margin: auto ;
+    margin-top : 50px;
   }
   
   
   .comment-section .comment{
     text-align: left ;
-    width : 80%;
+    width : 65%;
     padding : 15px;
     margin : 2px auto 0;
     border : 1px solid black;
-    border-radius : 20px 10px 20px 10px;
-    background-color: #e6eeff;
-  }
-  
-  .comment-section .comment:hover{
-    background-color: white;
+    border-radius : 10px 10px 10px 10px;
+    overflow-wrap: break-word;
   }
   
   .comment b{
