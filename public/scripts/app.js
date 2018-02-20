@@ -65,7 +65,7 @@ angular
         controllerAs: 'basketball'
       })
       .when('/batball', {
-        templateUrl: 'views/cricket.html',
+        templateUrl: 'views/batball.html',
         controller: 'CricketCtrl',
         controllerAs: 'cricket'
       })
