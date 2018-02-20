@@ -44,6 +44,11 @@ angular
         controller: 'AdminCtrl',
         controllerAs: 'admin'
       })
+      .when('/adminlogin', {
+        templateUrl: 'views/adminlogin.html',
+        controller: 'AdminLoginCtrl',
+        controllerAs: 'adminlogin'
+      })
       .when('/tennis', {
         templateUrl: 'views/tennis.html',
         controller: 'TennisCtrl',

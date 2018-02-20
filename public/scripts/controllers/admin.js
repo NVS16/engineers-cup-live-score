@@ -10,7 +10,7 @@
 angular.module('scoreApp')
     .controller('AdminCtrl', function ($scope, $location, loginservice) {
 
-        if (!loginservice.isLoggedIn()) $location.path('/');
+        if (!loginservice.isLoggedIn()) $location.path('/adminlogin');
         else {
             $scope.selectedGame = "football";
             socket.emit("join-football");
