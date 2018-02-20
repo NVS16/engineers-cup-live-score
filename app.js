@@ -1,12 +1,18 @@
 var express = require("express");
 var app = express();
-var http = require("http").Server(app);
 var bodyParser = require("body-parser");
-var io = require("socket.io")(http);
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(bodyParser.json());
+
+app.use(express.static(__dirname + "/public"));
+
+
+var server = app.listen(process.env.PORT || '8080');
+
+var io = require('socket.io').listen(server);
 
 var football_score = {
   "viewers": 0,
@@ -273,18 +279,6 @@ io.on("connection", function (socket) {
     console.log(data);
     io.in("cricket").emit("cricket-updated", cricket);
   });
-});
-
-
-
-
-
-
-app.use(express.static(__dirname + "/public"));
-var port = (process.env.PORT || '8080');
-app.set('port', port);
-http.listen(port, function () {
-  console.log("listening on : 8080");
 });
 
 
